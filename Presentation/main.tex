@@ -1,0 +1,70 @@
+\documentclass{beamer}
+\usetheme{metropolis}          % Use metropolis theme
+
+\usepackage{totcount}
+\usepackage[document]{ragged2e}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage[scaled]{helvet}  % Load Helvetica font
+\renewcommand{\rmdefault}{phv}  % Set serif to Helvetica (sans-serif)
+\usepackage{xcolor}  % Required for custom colors
+
+
+
+
+\title{A minimal example}
+\date{\today}
+\author{Luca Brodo}
+\institute{Hochschule Hamm-Lippstadt}
+
+\setbeamercolor{progress bar}{fg=HSHLDarkBlue, bg=HSHLOrange}
+\setbeamercolor{structure}{fg=HSHLDarkBlue}
+
+\titlegraphic{\hfill\includegraphics[height=10mm]{assets/logo_easy2.png}}
+\definecolor{rugred}{rgb}{0.8,0,0}
+
+
+
+\input{src/template_preamble}
+
+
+
+\begin{document}
+	
+	\maketitle
+	
+\addtocounter{framenumber}{1}
+\section{Introduction}
+
+\begin{frame}{First Slide}
+	Content here...
+\end{frame}
+
+
+\section{Section1}
+
+\begin{frame}{First Slide}
+	\begin{itemize}[ itemsep=1em]
+		\litem{Pissi}{
+			\item Ciao
+			}
+		\litem{Ciao}{}
+		
+	\end{itemize}
+\end{frame}
+\begin{frame}{Second Slide}
+	More content...
+\end{frame}
+\section{Section2}
+\begin{frame}{First Slide}
+	More content...
+\end{frame}
+\begin{frame}{Second Slide}
+	More content...
+\end{frame}
+\section{Conclusion}
+\begin{frame}{Final Slide}
+	Final thoughts...
+\end{frame}
+
+\end{document}

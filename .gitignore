@@ -1,0 +1,31 @@
+# Ignore all main.pdf files
+main.pdf
+.DS_Store
+# LaTeX auxiliary and temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.brf
+*.nav
+*.snm
+*.vrb
+*.dvi
+
+# Compiled files
+*.ps
+*.eps
+
+# Editor backup and swap files
+*~
+*.bak
+*.swp
+*.swo
+

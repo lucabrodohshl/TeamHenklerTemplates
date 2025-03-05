@@ -1,0 +1,47 @@
+%Options
+% FhD -> Changes the template for Univesity of dormtund
+% HSHL -> Changes the template for Univesity of Lippstadt
+% These change the type accordingly
+% ProjectWork  
+% BachelorThesis 
+% MasterThesis 
+% ResearchThesis 
+
+\documentclass[HSHL, MasterThesis]{henklerteam}
+
+\title{Title of your thesis}
+\author{Your Name}
+\supervisor{Your Supervisor}
+\cosupervisor{You Co-Supervisor(s)}
+\graddate{\today}
+\matriculationnumber{00000}
+
+
+%Change this if you are doing it with a company
+%\companyname{Company Name}
+%\companylogo{\logopath} %replace logopath with the company logo, comment it out if you dont want any logo
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+	Your Abstract
+\end{abstract}
+
+\makedeclaration
+\maketoc
+\input{src/best_practices}
+
+\input{src/04_motivation}
+\input{src/06_preliminaries}
+\input{src/05_related_work}
+\input{src/10_conclusion}
+
+\bibliographystyle{plain}
+\bibliography{src/bib} 
+
+\appendix
+
+\input{src/A1_Appendix}
+
+\end{document}

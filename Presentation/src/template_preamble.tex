@@ -1,0 +1,186 @@
+
+% Define HSHL colors
+\definecolor{HSHLYellow}{RGB}{254,204,0}  % HEX #FECC00
+\definecolor{HSHLDarkBlue}{RGB}{0,62,117} % HEX #003E75
+\definecolor{HSHLOrange}{RGB}{245,156,0}
+
+ \setbeamercolor{HSHLDarkBlue}{fg=HSHLDarkBlue}
+\setbeamertemplate{footnote}{%
+	\parindent 1em\noindent%
+	\raggedright
+	\usebeamerfont{footnote}%
+	\usebeamercolor[fg]{footnote}%
+	\insertfootnotetext\par%
+}
+
+\setbeamertemplate{footline}{%
+	\hspace{1em} % Add some left margin
+	\insertsectionhead % Show section title
+	\hfill
+	\insertframenumber/\inserttotalframenumber % Show slide numbers
+	\hspace{1em} % Add some right margin
+	\vspace{0.5em} % Adjust vertical spacing
+}
+
+\usepackage[T1]{fontenc}
+
+\newcommand{\col}{10}
+\usepackage{enumitem}  % Load enumitem package
+\newcounter{vertrules}
+\regtotcounter{section}
+\setcounter{vertrules}{\totvalue{section}}
+
+\setbeamertemplate{footline}{%
+	\begin{beamercolorbox}[wd=\textwidth,ht=5mm,dp=3mm,rightskip=1cm,leftskip=1cm]{footline}
+		\insertsectionnavigationhorizontal{\col cm}{}{}% Inserts section names automatically
+		\hfill \the\numexpr\insertframenumber-1\relax/\inserttotalframenumber
+	\end{beamercolorbox}
+	
+}
+
+\setbeamertemplate{section in head/foot}{%
+	
+	\if\insertsectionheadnumber1
+	\insertsectionheadnumber/ \insertsectionhead\hskip.5 cm $|$
+	\else
+	\insertsectionheadnumber/ \insertsectionhead\hskip.5 cm $|$
+	\fi
+	
+}
+
+
+
+\setbeamertemplate{frametitle}
+{%
+	\begin{beamercolorbox}[wd=\paperwidth,ht=1.4cm, center]{frametitle} 
+		\begin{tikzpicture}
+			
+			\useasboundingbox[fill=fg, draw=fg](0,0) rectangle(\the\paperwidth,5);
+			%\node at(11.3,0.7) {\hfill\includegraphics[height=5mm]{assets/logo_easy.png}};
+			\node[black,font=\large] at (0.5\paperwidth,0.7cm){\insertframetitle\quad\textcolor{gray}{ \insertsection}};
+		\end{tikzpicture}
+	\end{beamercolorbox}
+}
+
+
+\defbeamertemplate{section page}{progressbar2}{
+	
+	\centering
+	\begin{minipage}{22em}
+		\raggedleft
+		\usebeamercolor[fg]{HSHLDarkBlue}
+		\usebeamerfont{section title}
+
+		\Huge\textcolor{HSHLDarkBlue}{\fontsize{42}{10}\selectfont\thesection}\\
+		\vspace{1cm}
+		\Large
+		\Huge\textcolor{HSHLDarkBlue}{\insertsectionhead}\\[-1ex]
+		
+		\usebeamertemplate*{progress bar in section page}
+		\par
+		\ifx\insertsubsectionhead\@empty\else%
+		\usebeamercolor[fg]{subsection title}%
+		\usebeamerfont{subsection title}%
+		\insertsubsectionhead
+		\fi
+	\end{minipage}
+	\par
+	\vspace{\baselineskip}
+}
+
+\setbeamertemplate{section page}[progressbar2]
+\setbeamercolor{title separator}{fg=HSHLOrange}
+
+\setbeamertemplate{title}{
+	%\raggedright%
+	\linespread{1.0}%
+	 \inserttitle%
+	\par%
+	\vspace*{0.5em}
+	 }
+% Define the title page template
+\setbeamertemplate{title page}{
+	
+	 \setbeamercolor{normal text}{%
+		fg=white,
+		bg=black!2
+	}
+	\begin{minipage}[c][\paperheight]{\textwidth}
+		\ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+		\vfill
+		\centering
+		\begin{minipage}{0.8\textwidth}
+			\centering
+			\ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+			\ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+		\end{minipage}\\
+		\vspace{1.2cm}
+		\begin{minipage}{0.8\textwidth}
+			\centering
+		\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+		\ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+		\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+			
+		\end{minipage}\\
+		\vspace{1.5cm}
+	\end{minipage}
+	 \setbeamercolor{normal text}{%
+		fg=mDarkTeal,
+		bg=black!2
+	}
+}
+
+
+\def\maketitle{%
+	\setbeamercolor{background canvas}{bg=HSHLDarkBlue}
+	\frame[plain,noframenumbering]{\titlepage}
+	\setbeamercolor{background canvas}{bg=normal text.bg}
+	
+}
+
+\providecommand{\labelitemi}{$-$}
+\renewcommand{\labelitemi}{\textcolor{HSHLDarkBlue}{\guillemetright}}
+
+\newcommand{\litem}[3][]{%
+	\item #2\\
+	\vspace{-10pt}
+	\begin{tikzpicture}
+		% Parse the optional argument into color and length
+		\def\tempcolor{HSHLDarkBlue} % Default color
+		\def\templength{\textwidth/2}         % Default length
+		
+		\ifx\relax#1\relax % Check if the optional argument is provided
+		\else
+		\def\tempcolor{#1} % If yes, set the color
+		\def\templength{#2} % Length is the second argument
+		\fi
+		
+		% Draw the line with specified length and color
+		\draw[\tempcolor, line width=0.5pt] (0,0) -- (\templength,0);
+		
+		% Draw the circle at the end of the line
+		\draw[\tempcolor, fill] (\templength,0) circle (1pt);
+	\end{tikzpicture}
+	
+			\ifx&#3&%
+		% #1 is empty
+		\else
+		\raggedleft
+		\begin{itemize}
+			#3 % The content of the sublist
+		\end{itemize}
+		\raggedright
+		
+		\fi
+
+}
+%\setbeamertemplate{title separator}{
+%	\begin{tikzpicture}
+%		\fill[HSHLOrange] (0,0) rectangle (0.5*\textwidth, \metropolis@titleseparator@linewidth);
+%		\fill[HSHLDarkBlue] (0.5*\textwidth,0) rectangle (\textwidth, \metropolis@titleseparator@linewidth);
+%	\end{tikzpicture}%
+%	\par%
+%}
+
+
+
