@@ -7,8 +7,7 @@
 % MasterThesis 
 % ResearchThesis 
 
-\documentclass[HSHL, MasterThesis]{teamhenkler}
-\usepackage[english]{babel}
+\documentclass[FhD, MasterThesis]{teamhenkler}
 \title{Title of your thesis}
 \author{Your Name}
 \supervisor{Your Supervisor}
@@ -19,7 +18,7 @@
 
 %Change this if you are doing it with a company
 %\companyname{Company Name}
-%\companylogo{\logopath} %replace logopath with the company logo, comment it out if you dont want any logo
+%\companylogo{\logopath} %replace \logopath with the company logo, comment it out if you dont want any logo
 
 \begin{document}
 
@@ -31,11 +30,13 @@
 \makedeclaration
 \maketoc
 \input{src/best_practices}
-
-\input{src/04_motivation}
-\input{src/06_preliminaries}
-\input{src/05_related_work}
-\input{src/10_conclusion}
+\input{src/motivation}
+\input{src/related_work}
+\input{src/preliminaries}
+\input{src/approach}
+\input{src/mplementation}
+\input{src/evaluation}
+\input{src/conclusion}
 
 \bibliographystyle{plain}
 \bibliography{src/bib} 
