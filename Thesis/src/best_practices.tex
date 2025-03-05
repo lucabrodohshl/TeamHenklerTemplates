@@ -1,12 +1,32 @@
 \chapter{How tos}\label{chap:how_tos}
 
 
-This is the best practice to reference stuff. For example, in order to refer to a definition, use \verb|\defref{def:positive_semidefinite}| (gives \defref{def:positive_semidefinite}) for each of the definitions. In this way, each reference is consistent. Similarly, the appropriate command shown in \tabref{tab:ref_commands}.
+\section{Some useful advice}
+\begin{itemize}
+	\item Use the asset folder for images
+	\item Each chapter should be its own tex file
+	\item If you have an image, reference it using the appropriate commands (see below)
+	\item Each label should be created using this approach
+	\begin{itemize}
+		\item[] abbreviation:title
+		\item[] where abbreviation $\in \{\text{prob,eq, fig, subfig, chap, sec, tab}\}$
+	\end{itemize}
+		\item Compile 2-3 times, sometimes one compilation might not be necessary to updated bibliography
+	\item Use one bib file
+	\item The bib entry should be preceded by a comment with a short description of what the paper is about. 
+	\item To identify a paper, use this approach:
+			\begin{itemize}
+				\item[] firstAuthoutLastName + DateOfPublication + oneOrTwoWordsAboutThePaper
+			\end{itemize}
+	\item If you think about it makes sense to take a screenshot of the code to show it, think again
+	\item If you have some algorithm you want to show, use the appropriate pseudo code instead of the code (see \algoref{algo:bofosort})
+\end{itemize}
+
 
 
 
 \section{How to reference stuff}\label{sec:general_definitions}
-
+This is the best practice to reference stuff. For example, in order to refer to a definition, use \verb|\defref{def:positive_semidefinite}| (gives \defref{def:positive_semidefinite}) for each of the definitions. In this way, each reference is consistent. Similarly, the appropriate command shown in \tabref{tab:ref_commands}.
 
 \begin{table}[h]
 	\centering
@@ -205,4 +225,14 @@ This is the best practice to reference stuff. For example, in order to refer to 
 \end{figure}
 
 
+\begin{algorithm}
+	\caption{BogoSort}\label{algo:bofosort}
+	\begin{algorithmic}
+		\Function{BogoSort}{$A$}
+		\While{not \Call{IsSorted}{$A$}}
+		\State \Call{Shuffle}{$A$}
+		\EndWhile
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
 
