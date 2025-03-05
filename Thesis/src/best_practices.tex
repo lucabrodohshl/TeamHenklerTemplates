@@ -82,12 +82,127 @@ This is the best practice to reference stuff. For example, in order to refer to 
 \end{figure}
 
 
+\begin{figure}
+	\begin{tikzpicture}
+		\begin{umlpackage}{p} % package-p
+			\begin{umlpackage}{sp1} % package-sp1
+				\umlclass[ class]{A}{ % class-A
+					n : uint \\
+					t : float
+				}{}
+				\umlclass[class,y=-3]{B}{ % class-B
+					d : double
+				}{
+					\umlvirt{setB(b : B) : void} \\
+					getB() : B
+				}
+			\end{umlpackage}
+			\begin{umlpackage}[x=10,y=-6]{sp2} % package-sp2
+				\umlinterface[class]{C}{ % class-C
+					n : uint \\
+					s : string
+				}{}
+			\end{umlpackage}
+			\umlclass[class, x=2,y=-10]{D}{ % class-D
+				n : uint
+			}{}
+		\end{umlpackage}
+		
+		\umlassoc[geometry=-|-, arg1=tata, mult1=*, pos1=0.3, arg2=toto, mult2=1, pos2=2.9, align2=left]{C}{B}
+		\umlunicompo[geometry=-|, arg=titi, mult=*, pos=1.7, stereo=vector]{D}{C}
+		\umlimport[geometry=|-, anchors=90 and 50, name=import]{sp2}{sp1}
+		\umlaggreg[arg=tutu, mult=1, pos=0.8, angle1=30, angle2=60, loopsize=2cm]{D}{D}
+		\umlinherit[geometry=-|]{D}{B}
+		\umlnote[x=2.5,y=-6, width=3.5cm]{B}{
+			\footnotesize{I am a note that belongs to class B.}
+		}
+		\umlnote[x=7.5,y=-1.5]{import-2}{
+			\footnotesize{I am a note that concerns the import relationship.}
+		}
+		
+	\end{tikzpicture}
+	\caption{Example of a UML class diagram}
+\end{figure}
 
 
-
-
-
-
+\begin{figure}
+\begin{tikzpicture}
+	
+	\begin{umlsystem}[x=4]{The system}
+		\umlusecase{use case 1} % usecase-1
+		\umlusecase[y=-2]{use case 2} % usecase-2
+		\umlusecase[y=-4]{use case 3} % usecase-3
+		\umlusecase[x=4, y=-2, width=1.5cm]{ % usecase-4
+			\shortstack{use case 4\\\footnotesize{on 2 lines}}
+		}
+		\umlusecase[x=6]{use case 5} % usecase-5
+		\umlusecase[x=6, y=-4]{use case 6} % usecase-6
+	\end{umlsystem}
+	
+	\umlactor{user}
+	\umlactor[y=-3]{subuser}
+	\umlactor[x=14, y=-1.5]{admin}
+	
+	\umlinherit{subuser}{user}
+	\umlassoc{user}{usecase-1}
+	\umlassoc{subuser}{usecase-2}
+	\umlassoc{subuser}{usecase-3}
+	\umlassoc{admin}{usecase-5}
+	\umlassoc{admin}{usecase-6}
+	\umlinherit{usecase-2}{usecase-1}
+	\umlVHextend{usecase-5}{usecase-4}
+	\umlinclude[name=incl]{usecase-3}{usecase-4}
+	
+	\umlnote[x=7, y=-7]{incl-1}{
+		\footnotesize{note on include dependency}
+	}
+	
+\end{tikzpicture}
+\caption{Example of Use case diagram}
+\end{figure}
+\begin{figure}
+\begin{tikzpicture}[scale=.85]
+	
+	\begin{umlseqdiag}
+		\umlactor[class=A]{a}
+		\umldatabase[class=B, fill=blue!20]{b}
+		\umlmulti[class=C]{c}
+		\umlobject[class=D]{d}
+		\begin{umlcall}[op=opa(), type=synchron, return=0]{a}{b}
+			\begin{umlfragment}
+				\begin{umlcall}[op=opb(), type=synchron, return=1]{b}{c}
+					\begin{umlfragment}[type=alt, label=condition, inner xsep=8, fill=green!10]
+						\begin{umlcall}[op=opc(), type=asynchron, fill=red!10]{c}{d}
+						\end{umlcall}
+						\begin{umlcall}[type=return]{c}{b}
+						\end{umlcall}
+						\umlfpart[default]
+						\begin{umlcall}[op=opd(), type=synchron, return=3]{c}{d}
+						\end{umlcall}
+					\end{umlfragment}
+				\end{umlcall}
+			\end{umlfragment}
+			\begin{umlfragment}
+				\begin{umlcallself}[op=ope(), type=synchron, return=4]{b}
+					\begin{umlfragment}[type=assert]
+						\begin{umlcall}[op=opf(), type=synchron, return=5]{b}{c}
+						\end{umlcall}
+					\end{umlfragment}
+				\end{umlcallself}
+			\end{umlfragment}
+		\end{umlcall}
+		\umlcreatecall[class=E,x=8]{a}{e}
+		\begin{umlfragment}
+			\begin{umlcall}[op=opg(), name=test, type=synchron, return=6, dt=7, fill=red!10]{a}{e}
+				\umlcreatecall[class=F, stereo=boundary, x=12]{e}{f}
+			\end{umlcall}
+			\begin{umlcall}[op=oph(), type=synchron, return=7]{a}{e}
+			\end{umlcall}
+		\end{umlfragment}
+	\end{umlseqdiag}
+	
+\end{tikzpicture}
+\end{figure}
 
 
 

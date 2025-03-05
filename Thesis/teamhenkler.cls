@@ -85,7 +85,7 @@
 % Packages
 % ==========================
 \usepackage{graphicx} % Required for inserting images
-\usepackage[english]{babel}
+\RequirePackage[english]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{setspace}
 \usepackage[utf8]{inputenc}
@@ -105,6 +105,7 @@
 \usepackage{algorithm}
 \usepackage{amsthm}
 \usepackage{algpseudocode}
+
 % ==========================
 % Graphic Packages
 % ==========================
@@ -116,6 +117,7 @@
 \usepackage{subcaption}
 \usepackage{pgfplots}
 \usepackage[most]{tcolorbox}
+\usepackage{deps/tikz-uml}
 % ==========================
 % Tikz Libraries
 % =========================
@@ -205,6 +207,8 @@
 % ==========================
 % Tikkz styles
 % ==========================
+\tikzstyle{class} = [fill=white, minimum width=3cm]
+
 
 \tikzstyle{layer} = [rectangle, rounded corners, text centered, draw=black!50, dashed, inner sep= 15pt]
 \tikzstyle{layerTight} = [rectangle, rounded corners, minimum width=6.3cm, minimum height=1cm, text centered, draw=black!50, dashed, inner sep= 5pt]
