@@ -1,0 +1,63 @@
+\begin{figure}[ht]
+    \centering
+    %\vspace*{1pt}
+    \resizebox{0.8\textwidth}{!}{
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black] (A) at (0,2) {A};
+        \node[shape=circle,draw=black, below right= 1 of A] (B){B};
+        \node[shape=circle,draw=black, below right= 1 of B] (C)  {C};
+
+        \node[shape=circle,draw=black, below=2 of A] (D){D};
+        \node[shape=circle,draw=black, below=0.5 of D] (E){E};
+
+        \node[shape=circle,draw=black, above right=1 of A] (F){F};
+
+        \node[shape=circle,draw=black, above left=1 of A] (G){G};
+
+        \node[shape=circle,draw=black, below=2 of G] (H){H};
+
+        \node[shape=circle,draw=black, left=2 of D] (I){I};
+
+
+        \node[shape=circle,draw=black, below=0.6 of E] (J){J};
+
+        \node[shape=circle,draw=black, below left=2 of E] (K){K};
+        \node[shape=circle,draw=black,  right=0.7 of K] (L){L};
+
+        \node[shape=circle,draw=black,  below=0.5 of L] (M){M};
+
+        \node[shape=circle,draw=black,  below right=1 of E] (N){N};
+        \node[shape=circle,draw=black,  below right=1 of N] (O){O};
+        \node[shape=circle,draw=black,  left=1 of I] (P){P};
+
+      
+        \path[<->] (A) edge  (B);
+        \path[<->] (A) edge (D);
+        \path[<->] (A) edge (F);
+        \path[<->] (A) edge (G);
+        \path[<->] (A) edge (H);
+        \path[<->] (B) edge (C);
+        \path[<->] (B) edge (D);
+        \path[<->] (B) edge (F);
+        \path[<->] (B) edge (I);
+        %\path[<->] (C) edge (D);
+        \path[<->] (C) edge (E);
+        \path[<->] (D) edge (E);
+        \path[<->] (E) edge (K);
+        \path[<->] (E) edge (J);
+        \path[<->] (E) edge (N);
+        \path[<->] (K) edge (L);
+        \path[<->] (M) edge (K);
+        \path[<->] (M) edge [bend right] (J);
+        \path[<->] (M) edge (L);
+        \path[<->] (M) edge [bend left=60](I);
+        \path[<->] (N) edge (O);
+        \path[<->] (O) edge (J);
+        \path[<->] (P) edge (I);
+
+ 
+		\end{tikzpicture}
+	}
+    %\caption{Model of the Transportation Network}
+    %\label{fig:graph_road}
+\end{figure}

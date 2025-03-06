@@ -1,15 +1,7 @@
 % ==========================
 % Packages
 % ==========================
-\usepackage{graphicx} % Required for inserting images
-\usepackage[english]{babel}
-%\usepackage[hidelinks]{hyperref}
-%\usepackage{setspace}
-%\usepackage[utf8]{inputenc}
-\usepackage{enumitem} 
-%\usepackage[pass]{geometry}
-%\usepackage{multirow}
-\usepackage{pdfpages}
+
 \usepackage{chngcntr}
 \usepackage{bbm}
 \usepackage{xargs}  
@@ -86,12 +78,12 @@
 
 %\theoremstyle{definition}
 %\newtheorem{definition}{Definition}
-
-\theoremstyle{definition}
-\newtheorem{statecomprule}{SC-Rule}
-
-\theoremstyle{definition}
-\newtheorem{norm}{Norm}
+%
+%\theoremstyle{definition}
+%\newtheorem{statecomprule}{SC-Rule}
+%
+%\theoremstyle{definition}
+%\newtheorem{norm}{Norm}
 
 % ==========================
 % Colors
@@ -121,7 +113,7 @@
 \tikzstyle{layer} = [rectangle, rounded corners, text centered, draw=black!50, dashed, inner sep= 15pt]
 \tikzstyle{layerTight} = [rectangle, rounded corners, minimum width=6.3cm, minimum height=1cm, text centered, draw=black!50, dashed, inner sep= 5pt]
 \tikzstyle{layerGroup} = [rectangle, rounded corners, minimum width=7.3cm, minimum height=1cm, text centered, draw= black, dashed, inner sep= 5pt]
-\tikzstyle{subLayer} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{subLayer} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=3cm, text centered, draw=black]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{arrowDown} = [thick,<-,>=stealth]
 \tikzstyle{doublearrow} = [thick,<->,>=stealth]
@@ -289,7 +281,7 @@
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 
-
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 
 \newenvironment{missingelements}[1][Missing Elements]

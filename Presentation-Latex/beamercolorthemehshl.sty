@@ -1,0 +1,124 @@
+\mode<presentation>
+
+
+\definecolor{HSHLYellow}{RGB}{254,204,0}  % HEX #FECC00
+\definecolor{HSHLDarkBlue}{RGB}{0,62,117} % HEX #003E75
+\definecolor{HSHLOrange}{RGB}{245,156,0}
+
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /hshl/color/block/.cd,
+    .is choice,
+    transparent/.code=\hshl@block@transparent,
+    fill/.code=\hshl@block@fill,
+}
+\pgfkeys{
+  /hshl/color/background/.cd,
+    .is choice,
+    dark/.code=\hshl@colors@dark,
+    light/.code=\hshl@colors@light,
+}
+\newcommand{\hshl@color@setdefaults}{
+  \pgfkeys{/hshl/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+\newcommand{\hshl@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=black!2,
+    bg=mDarkTeal
+  }
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\hshl@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=mDarkTeal,
+    bg=black!2
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=mLightBrown
+}
+\setbeamercolor{example text}{%
+  fg=mLightGreen
+}
+\setbeamercolor{titlelike}{use=normal text, parent=normal text}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+\setbeamercolor{palette primary}{%
+  use=normal text,
+  fg=normal text.bg,
+  bg=normal text.fg
+}
+\setbeamercolor{frametitle}{%
+bg=normal text.bg,
+fg=normal text.fg
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\hshl@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+}
+\newcommand{\hshl@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!80!fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!50!normal text.bg
+  }
+}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=block title.bg,
+    fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+    use={block title, example text},
+    bg=block title.bg,
+    fg=example text.fg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{bibliography entry author}{fg=, bg=}
+\setbeamercolor{bibliography entry title}{fg=, bg=}
+\setbeamercolor{bibliography entry location}{fg=, bg=}
+\setbeamercolor{bibliography entry note}{fg=, bg=}
+\hshl@color@setdefaults
+\ProcessPgfPackageOptions{/hshl/color}
+
+\mode
+<all>

@@ -1,0 +1,45 @@
+\documentclass{beamer}
+\usetheme{hshl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\title{A minimal example}
+\date{\today}
+\author{Luca Brodo}
+\subtitle{Master Thesis}
+\email{luca.brodo@hshl.de}
+
+\hshlset{uni=Fhd}
+
+\input{src/general_preamble.tex}
+
+\begin{document}
+\maketitle
+
+
+\section[Theorem]{Talking about a theorem}
+\begin{frame} 
+\frametitle{There Is No Largest Prime Number} 
+\framesubtitle{The proof uses \textit{reductio ad absurdum}.} 
+\begin{theorem}
+There is no largest prime number. \end{theorem} 
+\begin{enumerate} 
+\item<1-| alert@1> Suppose $p$ were the largest prime number. 
+\item<2-> Let $q$ be the product of the first $p$ numbers. 
+\item<3-> Then $q+1$ is not divisible by any of them. 
+\item<1-> But $q + 1$ is greater than $1$, thus divisible by some prime
+number not in the first $p$ numbers. 
+\end{enumerate}
+\end{frame}
+\section{Simple Examples}
+\begin{frame}{Simple Itemize}
+\begin{itemize}
+\item one
+\item two
+\item \inserttotalframenumber
+\end{itemize}
+\end{frame}
+
+
+\input{src/example1.tex}
+\input{src/example2.tex}
+\end{document}

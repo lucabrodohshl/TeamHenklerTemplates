@@ -1,0 +1,183 @@
+\mode<presentation>
+
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{totcount}
+
+
+\newcounter{vertrules}
+\regtotcounter{section}
+\setcounter{vertrules}{\totvalue{section}}
+
+
+
+\pgfkeys{
+  /hshl/outer/numbering/.cd,
+    .is choice,
+    none/.code=\setbeamertemplate{frame numbering}[none],
+    counter/.code=\setbeamertemplate{frame numbering}[counter],
+    fraction/.code=\setbeamertemplate{frame numbering}[fraction],
+}
+\pgfkeys{
+  /hshl/outer/progressbar/.cd,
+    .is choice,
+    none/.code={%
+      \setbeamertemplate{headline}[plain]
+      \setbeamertemplate{frametitle}[plain]
+      \setbeamertemplate{footline}[slick]
+    },
+    head/.code={\pgfkeys{/hshl/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    frametitle/.code={\pgfkeys{/hshl/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    foot/.code={\pgfkeys{/hshl/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}%
+      }
+    },
+}
+\newcommand{\hshl@outer@setdefaults}{
+  \pgfkeys{/hshl/outer/.cd,
+    numbering=fraction,
+    progressbar=frametitle,
+  }
+}
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate{frame footer}{none}{}
+\defbeamertemplate{frame footer}{custom}[1]{ #1 }
+\defbeamertemplate{frame numbering}{none}{}
+\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+\defbeamertemplate{frame numbering}{fraction}{
+  \insertframenumber/\inserttotalframenumber
+}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+  \begin{beamercolorbox}[wd=\textwidth, sep=3ex]{footline}%
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}
+    \hfill%
+    \usebeamertemplate*{frame numbering}
+  \end{beamercolorbox}%
+}
+
+
+\newlength\sectionboxwd
+
+\AtBeginDocument{%
+	\ifnum\totvalue{section}>0 
+		\setlength\sectionboxwd{\dimexpr0.8\paperwidth/\totvalue{section}\relax}
+	\else
+	\setlength\sectionboxwd{\textwidth}
+	\fi
+} 
+
+
+\newcommand{\col}{10}
+\defbeamertemplate{footline}{slick2}{%
+	\begin{beamercolorbox}[wd=\textwidth,ht=2cm,dp=3mm,rightskip=1cm,leftskip=1cm]{frametitle}
+		\insertsectionnavigationhorizontal{\col cm}{}{}% Inserts section names automatically
+		\hfill \the\numexpr\insertframenumber\relax/\inserttotalframenumber 
+	\end{beamercolorbox}
+}
+
+
+\defbeamertemplate{footline}{slick}{%
+	\begin{beamercolorbox}[wd=0.8\paperwidth]{footline}
+		\insertsectionnavigationhorizontal{0.8\paperwidth}{\hskip17pt}{\hskip17pt} 
+	\setcounter{vertrules}{\totvalue{section}}
+\end{beamercolorbox}
+	%\addtocounter{vertrules}{-1}
+        \begin{tikzpicture}[remember picture,overlay]
+            \foreach \i in {1,2,...,\thevertrules}
+            \draw[thick,black!40] (\i*\sectionboxwd+0.5\i+17pt,0.2) -- (\i*\sectionboxwd+0.5\i+17pt,0.65);
+        \node[thick] at ({(\value{vertrules})*\sectionboxwd + 10+17pt+0.5*(\value{vertrules})}, 0.39) {\fontsize{8}{10}\selectfont
+            \the\numexpr\insertframenumber\relax/\inserttotalframenumber
+        };
+        \end{tikzpicture}%
+    
+}
+
+
+
+\setbeamertemplate{section in head/foot}{%
+    \hspace*{-8pt}\setlength\fboxsep{0pt}%
+    \parbox[c][4ex][t]{\dimexpr\sectionboxwd-5pt\relax}{%
+        \hfill\parbox{\dimexpr\sectionboxwd-5pt\relax}{%
+            \fontsize{8}{10}\selectfont\centering\insertsectionheadnumber/ \insertsectionhead
+        }\hfill\mbox{}%
+    }\hspace*{4pt}%
+}
+
+
+\newlength{\hshl@frametitle@padding}
+\setlength{\hshl@frametitle@padding}{2.2ex}
+\newcommand{\hshl@frametitlestrut@start}{
+  \rule{0pt}{\hshl@frametitle@padding +%
+    \totalheightof{%
+      \ifcsdef{hshl@frametitleformat}{\hshl@frametitleformat X}{X}%
+    }%
+  }%
+}
+\newcommand{\hshl@frametitlestrut@end}{
+  \rule[-\hshl@frametitle@padding]{0pt}{\hshl@frametitle@padding}
+}
+
+\defbeamertemplate{frametitle}{plain}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,%
+      sep=0pt,%
+      leftskip=\hshl@frametitle@padding,%
+      rightskip=\hshl@frametitle@padding,%
+    ]{frametitle}%
+  \hshl@frametitlestrut@start%
+  \insertframetitle %\hfill\small\textcolor{gray}{\insertsectionhead}
+  \nolinebreak%
+  \hshl@frametitlestrut@end%
+  \end{beamercolorbox}%
+}
+
+
+
+\setbeamertemplate{frametitle continuation}{%
+  \usebeamerfont{frametitle}
+  \romannumeral \insertcontinuationcount
+}
+
+
+\newlength{\hshl@progressinheadfoot}
+\newlength{\hshl@progressinheadfoot@linewidth}
+\setlength{\hshl@progressinheadfoot@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in head/foot}{
+  \nointerlineskip
+  \setlength{\hshl@progressinheadfoot}{%
+    \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \begin{beamercolorbox}[wd=\textwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \fill[bg] (0,0) rectangle (\textwidth, \hshl@progressinheadfoot@linewidth);
+      \fill[fg] (0,0) rectangle (\hshl@progressinheadfoot, \hshl@progressinheadfoot@linewidth);
+    \end{tikzpicture}%
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+\AtBeginDocument{%
+  \apptocmd{\appendix}{%
+    \pgfkeys{%
+      /hshl/outer/.cd,
+      numbering=none,
+      progressbar=none}
+    }{}{}
+}
+\hshl@outer@setdefaults
+\ProcessPgfPackageOptions{/hshl/outer}
+
+\mode<all>

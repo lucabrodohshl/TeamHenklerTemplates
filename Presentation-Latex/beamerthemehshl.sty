@@ -1,0 +1,52 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+% Settings
+\useinnertheme{hshl}
+\useoutertheme{hshl}
+\usecolortheme{hshl}
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]  
+
+\newcommand{\hshlset}[1]{\pgfkeys{/hshl/.cd,#1}}
+
+
+
+\pgfkeys{
+  /hshl/uni/.cd,
+    .is choice,
+    HSHL/.code={
+        \titlegraphic{\hfill\includegraphics[height=12mm]{assets/logo/HSHL_Logo_horizontal_CMYK_yellow_red_mit-Schutzraum_ENG.png}}
+        },
+    Fhd/.code ={
+        \titlegraphic{\hfill\includegraphics[height=12mm]{assets/logo/FH_Dortmund-logo.svg.png}}
+    }
+}
+
+\newcommand{\hshl@setdefaults}{
+    \pgfkeys{/hshl/.cd,
+    uni=HSHL
+  }
+}
+
+
+
+
+\hshl@setdefaults
+\ProcessPgfOptions{/hshl}
+
+\makeatletter
+\newcommand{\insertemail}{\@email}
+\def\email#1{\gdef\@email{#1}}
+\def\@email{\@latex@error{No \noexpand\email given}\@ehc}
+\email{}
+\makeatother
+
+\mode<all>

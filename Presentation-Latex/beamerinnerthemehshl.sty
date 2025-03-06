@@ -1,0 +1,345 @@
+\mode<presentation>
+
+\ProvidesPackage{beamerinnerthemehshl}
+
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+
+\usetikzlibrary{external}
+
+
+\pgfkeys{
+  /hshl/inner/sectionpage/.cd,
+    .is choice,
+    none/.code=\hshl@disablesectionpage,
+    simple/.code={\hshl@enablesectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\hshl@enablesectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+    progressbarHSHL/.code={\hshl@enablesectionpage
+                       \setbeamertemplate{section page}[progressbar2]},
+}
+\pgfkeys{
+  /hshl/inner/subsectionpage/.cd,
+    .is choice,
+    none/.code=\hshl@disablesubsectionpage,
+    simple/.code={\hshl@enablesubsectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\hshl@enablesubsectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+}
+
+
+
+\defbeamertemplate{section page}{progressbar2}{
+	
+	\centering
+	\begin{minipage}{22em}
+		\raggedleft
+
+		\usebeamerfont{section title}
+
+		\Huge\fontsize{35}{10}\selectfont\thesection\\
+		\vspace{0.5cm}
+		\Large
+		\Huge\insertsectionhead\\[-1ex]
+		\vspace{0.1cm}
+		\usebeamertemplate*{progress bar in section page}
+		\par
+		\ifx\insertsubsectionhead\@empty\else%
+		\usebeamercolor[fg]{subsection title}%
+		\usebeamerfont{subsection title}%
+		\insertsubsectionhead
+		\fi
+	\end{minipage}
+	\par
+	\vspace{\baselineskip}
+}
+
+\setbeamertemplate{title page}{
+    \begin{minipage}[c][\paperheight]{\textwidth}
+		\ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+		\vfill
+		\centering
+		\begin{minipage}{\textwidth}
+            \centering
+            \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+		    \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+		\end{minipage}\\
+		\vspace{1.2cm}
+		\begin{minipage}{\textwidth}
+			\centering
+		\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+		\ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+		\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+		\end{minipage}\\
+		\vspace{1.5cm}
+	\end{minipage}
+}
+
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \frame[plain,noframenumbering]{\titlepage}
+  \fi
+}
+
+
+\def\titlepage{%
+  \usebeamertemplate{title page}
+}
+\setbeamertemplate{title graphic}{
+  \vbox to 0pt {
+    \vspace*{2em}
+    \inserttitlegraphic%
+  }%
+  \nointerlineskip%
+}
+\setbeamertemplate{title}{
+  %\raggedright%
+  \linespread{1.0}%
+  \inserttitle%
+  \par%
+  \vspace*{0.5em}
+}
+\setbeamertemplate{subtitle}{
+  %\raggedright%
+  \insertsubtitle%
+  \par%
+  \vspace*{0.5em}
+}
+\newlength{\hshl@titleseparator@linewidth}
+\setlength{\hshl@titleseparator@linewidth}{0.4pt}
+\setbeamertemplate{title separator}{
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[fg] (0,0) rectangle (\textwidth, \hshl@titleseparator@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+  \par%
+}
+\setbeamertemplate{author}{
+  \vspace*{2em}
+ 
+  \if\insertemail\empty 
+  \insertauthor%
+  \else 
+  \href{mailto:\insertemail}{ \insertauthor} 
+  \fi
+  \par%
+  \vspace*{0.25em}
+}
+\setbeamertemplate{date}{
+  \insertdate%
+  \par%
+}
+\setbeamertemplate{institute}{
+  \vspace*{3mm}
+  \insertinstitute%
+  \par%
+}
+\defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+    \fi
+  \end{center}
+}
+\defbeamertemplate{section page}{progressbar}{
+  \centering
+  \begin{minipage}{22em}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\\[-1ex]
+    \usebeamertemplate*{progress bar in section page}
+    \par
+    \ifx\insertsubsectionhead\@empty\else%
+      \usebeamercolor[fg]{subsection title}%
+      \usebeamerfont{subsection title}%
+      \insertsubsectionhead
+    \fi
+  \end{minipage}
+  \par
+  \vspace{\baselineskip}
+}
+
+
+
+\newcommand{\hshl@disablesectionpage}{
+  \AtBeginSection{
+    % intentionally empty
+  }
+}
+\newcommand{\hshl@enablesectionpage}{
+  \AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+}
+
+\newcommand{\hshl@disablesubsectionpage}{
+  \AtBeginSubsection{
+    % intentionally empty
+  }
+}
+\newcommand{\hshl@enablesubsectionpage}{
+  \AtBeginSubsection{
+    \ifbeamer@inframe
+      \subsectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+  }
+}
+
+\setbeamertemplate{subsection page}{%
+  \usebeamertemplate*{section page}
+}
+
+
+\newlength{\hshl@progressonsectionpage}
+\newlength{\hshl@progressonsectionpage@linewidth}
+\setlength{\hshl@progressonsectionpage@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in section page}{
+  \setlength{\hshl@progressonsectionpage}{%
+    \textwidth * \ratio{\the\numexpr\insertframenumber+1\relax pt}{\inserttotalframenumber pt}%
+  }%
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[HSHLDarkBlue] (0,0) rectangle (\textwidth, \hshl@progressonsectionpage@linewidth);
+    \fill[HSHLOrange] (0,0) rectangle (\hshl@progressonsectionpage, \hshl@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+}
+
+
+\def\inserttotalframenumber{100}
+\newlength{\hshl@blocksep}
+\newlength{\hshl@blockadjust}
+\setlength{\hshl@blocksep}{0.75ex}
+\setlength{\hshl@blockadjust}{0.25ex}
+\providecommand{\hshl@strut}{%
+  \vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()}%
+}
+\newcommand{\hshl@block}[1]{
+  \par\vskip\medskipamount%
+  \setlength{\parskip}{0pt}
+  \ifbeamercolorempty[bg]{block title#1}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}}{%
+  \ifbeamercolorempty[bg]{block title}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}%
+  }%
+  {%
+    \begin{beamercolorbox}[
+      sep=\dimexpr\hshl@blocksep-\hshl@blockadjust\relax,
+      leftskip=\hshl@blockadjust,
+      rightskip=\dimexpr\hshl@blockadjust plus 4em\relax
+    ]{block title#1}%
+  }}%
+      \usebeamerfont*{block title#1}%
+      \hshl@strut%
+      \insertblocktitle%
+      \hshl@strut%
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \ifbeamercolorempty[bg]{block body#1}{%
+    \begin{beamercolorbox}[vmode]{block body#1}}{
+  \ifbeamercolorempty[bg]{block body}{%
+    \begin{beamercolorbox}[vmode]{block body#1}%
+  }{%
+    \begin{beamercolorbox}[sep=\hshl@blocksep, vmode]{block body#1}%
+    \vspace{-\hshl@parskip}
+  }}%
+      \usebeamerfont{block body#1}%
+      \setlength{\parskip}{\hshl@parskip}%
+}
+
+
+\setbeamertemplate{block begin}{\hshl@block{}}
+\setbeamertemplate{block alerted begin}{\hshl@block{ alerted}}
+\setbeamertemplate{block example begin}{\hshl@block{ example}}
+\setbeamertemplate{block end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block alerted end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block example end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{itemize items}{\guillemetright}
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent%
+  \raggedright
+  \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+
+\newlength{\hshl@parskip}
+\setlength{\hshl@parskip}{0.5em}
+\setlength{\parskip}{\hshl@parskip}
+\linespread{1.15}
+\define@key{beamerframe}{c}[true]{% centered
+  \beamer@frametopskip=0pt plus 1fill\relax%
+  \beamer@framebottomskip=0pt plus 1fill\relax%
+  \beamer@frametopskipautobreak=0pt plus .4\paperheight\relax%
+  \beamer@framebottomskipautobreak=0pt plus .6\paperheight\relax%
+  \def\beamer@initfirstlineunskip{}%
+}
+
+\providebool{hshl@standout}
+\define@key{beamerframe}{standout}[true]{%
+  \booltrue{hshl@standout}
+  \begingroup
+    \setkeys{beamerframe}{c}
+    \setkeys{beamerframe}{noframenumbering}
+    \ifbeamercolorempty[bg]{palette primary}{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=-palette primary.fg
+      }
+    }{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=palette primary.bg
+      }
+    }
+    \setbeamercolor{local structure}{
+      fg=palette primary.fg
+    }
+    \usebeamercolor[fg]{palette primary}
+}
+  \pretocmd{\beamer@reseteecodes}{%
+    \ifbool{hshl@standout}{
+      \endgroup
+      \boolfalse{hshl@standout}
+    }{}
+  }{}{}
+  \AtBeginEnvironment{beamer@frameslide}{
+    \ifbool{hshl@standout}{
+      \centering
+      \usebeamerfont{standout}
+    }{}
+  }
+
+\newcommand{\hshl@inner@setdefaults}{
+    \pgfkeys{/hshl/inner/.cd,
+      sectionpage=progressbarHSHL,
+      subsectionpage=none
+    }
+  }
+  
+
+\hshl@inner@setdefaults
+\ProcessPgfPackageOptions{/hshl/inner}
+
+\mode
+<all>

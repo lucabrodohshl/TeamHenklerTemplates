@@ -1,0 +1,45 @@
+\begin{figure}
+    \resizebox{0.7\textwidth}{!}{
+    \begin{tikzpicture}[>=stealth]
+        
+        % Define clients nodes
+        \node[inner sep=0pt] (client1) at (-3,2.5) {\includegraphics[width=1.1cm]{assets/img/client.png}};
+        \node[inner sep=0pt] (client2) at (0,2.5) {\includegraphics[width=1.1cm]{assets/img/client.png}};
+        \node[inner sep=0pt] (client3) at (3,2.5) {\includegraphics[width=1.1cm]{assets/img/client.png}};
+        \node[inner sep=0pt] (client4) at (-4,0) {\includegraphics[width=1.1cm]{assets/img/client.png}};
+        \node[inner sep=0pt] (client5) at (-1,0) {\includegraphics[width=1.1cm]{assets/img/goods.png}};
+        \node[inner sep=0pt] (client6) at (1,0) {\includegraphics[width=1.1cm]{assets/img/goods.png}};
+        \node[inner sep=0pt] (client7) at (4,0) {\includegraphics[width=1.1cm]{assets/img/goods.png}};
+        
+        % Define AVs nodes
+        \node[inner sep=0pt] (AV1) at (-3,-3) {\includegraphics[width=2.4cm]{assets/img/car.png}};
+        \node[inner sep=0pt] (AV2) at (0,-3) {\includegraphics[width=2.4cm]{assets/img/car.png}};
+        \node[inner sep=0pt] (AV3) at (3,-3) {\includegraphics[width=2.4cm]{assets/img/car.png}};
+
+        
+        % Arrows from clients to AVs
+        \draw[->] (client1.south) -- (AV1.north);
+        \draw[->] (client2.south) -- (AV2.north);
+        \draw[->] (client3.south) -- (AV3.north);
+        \draw[->] (client4.south) -- (AV1.north);
+        \draw[->] (client5.south) -- (AV2.north);
+        \draw[->] (client6.south) -- (AV2.north);
+        \draw[->] (client7.south) -- (AV3.north);
+        
+        % Label clients and AVs
+        \node[above=0.2cm of client1] {Client 1};
+        \node[above=0.2cm of client2] {Client 2};
+        \node[above=0.2cm of client3] {Client 3};
+        \node[above=0.2cm of client4] {Client 4};
+        \node[above=0.2cm of client5] {Client 5};
+        \node[above=0.2cm of client6] {Client 6};
+        \node[above=0.2cm of client7] {Client 7};
+        \node[below=0.2cm of AV1] {AV 1};
+        \node[below=0.2cm of AV2] {AV 2};
+        \node[below=0.2cm of AV3] {AV 3};
+
+        
+    \end{tikzpicture}
+    
+}
+\end{figure}

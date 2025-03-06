@@ -1,0 +1,33 @@
+\section[Image/Text 2]{Image next to text 2}
+
+
+
+\begin{frame}{Tackling 4 Main Challenges}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			
+			\begin{itemize}
+				\item \only<1>{\textbf{AV Dispatching}}\only<2->{AV Dispatching}
+				\item \only<2>{\textbf{AV Routing}}\only<3->{AV Routing}
+				\item \only<3>{\textbf{AV Rebalancing}}\only<4->{AV Rebalancing}
+				\item \only<4>{\textbf{Ride-Sharing and Delivery Pooling}}
+			\end{itemize}
+				
+		\end{column}
+		%%
+		\begin{column}{0.6\textwidth}
+			\only<1>{ % AV Dispatching image
+				\input{assets/img/dispatching.tex}
+			}
+			\only<2>{ % AV Routing image
+				\input{assets/img/routing.tex}
+			}
+			\only<3>{ % AV Rebalancing image
+				\input{assets/img/rebalancing.tex}
+			}
+			\only<4>{ % Ride-Sharing image
+				\input{assets/img/ride_sharing.tex}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
