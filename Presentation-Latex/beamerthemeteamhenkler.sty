@@ -7,20 +7,20 @@
 \RequirePackage{pgfopts}
 \RequirePackage{tikz}
 % Settings
-\useinnertheme{hshl}
-\useoutertheme{hshl}
-\usecolortheme{hshl}
+\useinnertheme{teamhenkler}
+\useoutertheme{teamhenkler}
+\usecolortheme{teamhenkler}
 
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{blocks}[rounded][shadow=true]  
 
-\newcommand{\hshlset}[1]{\pgfkeys{/hshl/.cd,#1}}
+\newcommand{\thset}[1]{\pgfkeys{/teamhenkler/.cd,#1}}
 
 
 
 \pgfkeys{
-  /hshl/uni/.cd,
+  /teamhenkler/uni/.cd,
     .is choice,
     HSHL/.code={
         \titlegraphic{\hfill\includegraphics[height=12mm]{assets/logo/HSHL_Logo_horizontal_CMYK_yellow_red_mit-Schutzraum_ENG.png}}
@@ -30,8 +30,8 @@
     }
 }
 
-\newcommand{\hshl@setdefaults}{
-    \pgfkeys{/hshl/.cd,
+\newcommand{\teamhenkler@setdefaults}{
+    \pgfkeys{/teamhenkler/.cd,
     uni=HSHL
   }
 }
@@ -39,8 +39,8 @@
 
 
 
-\hshl@setdefaults
-\ProcessPgfOptions{/hshl}
+\teamhenkler@setdefaults
+\ProcessPgfOptions{/teamhenkler}
 
 \makeatletter
 \newcommand{\insertemail}{\@email}

@@ -10,43 +10,64 @@
 \regtotcounter{section}
 \setcounter{vertrules}{\totvalue{section}}
 
-
+\newcommand{\footlinestyle}{slick}
+\pgfkeys{
+  /teamhenkler/outer/footlinestyle/.cd,
+    .is choice,
+    plain/.code={\setbeamertemplate{footline}[plain]\setbeamertemplate{section in head/foot}[plain]},
+    slick/.code={\setbeamertemplate{footline}[slick]\setbeamertemplate{section in head/foot}[slick]},
+}
 
 \pgfkeys{
-  /hshl/outer/numbering/.cd,
+  /teamhenkler/outer/numbering/.cd,
     .is choice,
     none/.code=\setbeamertemplate{frame numbering}[none],
     counter/.code=\setbeamertemplate{frame numbering}[counter],
     fraction/.code=\setbeamertemplate{frame numbering}[fraction],
 }
 \pgfkeys{
-  /hshl/outer/progressbar/.cd,
+  /teamhenkler/outer/progressbar/.cd,
     .is choice,
     none/.code={%
       \setbeamertemplate{headline}[plain]
       \setbeamertemplate{frametitle}[plain]
-      \setbeamertemplate{footline}[slick]
     },
-    head/.code={\pgfkeys{/hshl/outer/progressbar=none}
+    head/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
       \addtobeamertemplate{headline}{}{%
         \usebeamertemplate*{progress bar in head/foot}
       }
     },
-    frametitle/.code={\pgfkeys{/hshl/outer/progressbar=none}
+    frametitle/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
       \addtobeamertemplate{frametitle}{}{%
         \usebeamertemplate*{progress bar in head/foot}
       }
     },
-    foot/.code={\pgfkeys{/hshl/outer/progressbar=none}
+    foot/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
       \addtobeamertemplate{footline}{}{%
         \usebeamertemplate*{progress bar in head/foot}%
       }
     },
+    headstatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/footstatic}
+      }
+    },
+    frametitlestatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot static}
+      }
+    },
+    footstatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot static}%
+      }
+    },
 }
-\newcommand{\hshl@outer@setdefaults}{
-  \pgfkeys{/hshl/outer/.cd,
+\newcommand{\teamhenkler@outer@setdefaults}{
+  \pgfkeys{/teamhenkler/outer/.cd,
     numbering=fraction,
-    progressbar=frametitle,
+    progressbar=frametitlestatic,
+    footlinestyle=slick
   }
 }
 \setbeamertemplate{navigation symbols}{}
@@ -65,6 +86,7 @@
     \hfill%
     \usebeamertemplate*{frame numbering}
   \end{beamercolorbox}%
+  %\setbeamertemplate{section in head/foot}[plain]
 }
 
 
@@ -79,13 +101,6 @@
 } 
 
 
-\newcommand{\col}{10}
-\defbeamertemplate{footline}{slick2}{%
-	\begin{beamercolorbox}[wd=\textwidth,ht=2cm,dp=3mm,rightskip=1cm,leftskip=1cm]{frametitle}
-		\insertsectionnavigationhorizontal{\col cm}{}{}% Inserts section names automatically
-		\hfill \the\numexpr\insertframenumber\relax/\inserttotalframenumber 
-	\end{beamercolorbox}
-}
 
 
 \defbeamertemplate{footline}{slick}{%
@@ -100,47 +115,53 @@
         \node[thick] at ({(\value{vertrules})*\sectionboxwd + 10+17pt+0.5*(\value{vertrules})}, 0.39) {\fontsize{8}{10}\selectfont
             \the\numexpr\insertframenumber\relax/\inserttotalframenumber
         };
-        \end{tikzpicture}%
-    
+        \end{tikzpicture}%   
+        %\setbeamertemplate{section in head/foot}[slick]
 }
 
 
+\defbeamertemplate{section in head/foot}{plain}{}
 
-\setbeamertemplate{section in head/foot}{%
-    \hspace*{-8pt}\setlength\fboxsep{0pt}%
+\defbeamertemplate{section in head/foot}{slick}{%
+    \hspace*{-6pt}\setlength\fboxsep{0pt}%
     \parbox[c][4ex][t]{\dimexpr\sectionboxwd-5pt\relax}{%
         \hfill\parbox{\dimexpr\sectionboxwd-5pt\relax}{%
-            \fontsize{8}{10}\selectfont\centering\insertsectionheadnumber/ \insertsectionhead
+        \centering
+            \fontsize{8}{10}\selectfont\centering\ \insertsectionhead
         }\hfill\mbox{}%
     }\hspace*{4pt}%
 }
 
 
-\newlength{\hshl@frametitle@padding}
-\setlength{\hshl@frametitle@padding}{2.2ex}
-\newcommand{\hshl@frametitlestrut@start}{
-  \rule{0pt}{\hshl@frametitle@padding +%
+\newlength{\teamhenkler@frametitle@padding}
+\setlength{\teamhenkler@frametitle@padding}{2.2ex}
+\newcommand{\teamhenkler@frametitlestrut@start}{
+  \rule{0pt}{\teamhenkler@frametitle@padding +%
     \totalheightof{%
-      \ifcsdef{hshl@frametitleformat}{\hshl@frametitleformat X}{X}%
+      \ifcsdef{teamhenkler@frametitleformat}{\teamhenkler@frametitleformat X}{X}%
     }%
   }%
 }
-\newcommand{\hshl@frametitlestrut@end}{
-  \rule[-\hshl@frametitle@padding]{0pt}{\hshl@frametitle@padding}
+\newcommand{\teamhenkler@frametitlestrut@end}{
+  \rule[-\teamhenkler@frametitle@padding]{0pt}{\teamhenkler@frametitle@padding}
 }
 
 \defbeamertemplate{frametitle}{plain}{%
   \nointerlineskip%
   \begin{beamercolorbox}[%
       wd=\paperwidth,%
-      sep=0pt,%
-      leftskip=\hshl@frametitle@padding,%
-      rightskip=\hshl@frametitle@padding,%
+      sep=-1pt,%
+      leftskip=\teamhenkler@frametitle@padding,%
+      rightskip=\teamhenkler@frametitle@padding,%
     ]{frametitle}%
-  \hshl@frametitlestrut@start%
-  \insertframetitle %\hfill\small\textcolor{gray}{\insertsectionhead}
-  \nolinebreak%
-  \hshl@frametitlestrut@end%
+  \teamhenkler@frametitlestrut@start%
+  \centering\insertframetitle %\hfill\small\textcolor{gray}{\insertsectionhead}
+  \if\insertframesubtitle\empty
+  %\nolinebreak
+  \else
+  \\[1mm]\small\insertframesubtitle\vspace*{-4mm}
+  \fi
+  \teamhenkler@frametitlestrut@end%
   \end{beamercolorbox}%
 }
 
@@ -152,32 +173,43 @@
 }
 
 
-\newlength{\hshl@progressinheadfoot}
-\newlength{\hshl@progressinheadfoot@linewidth}
-\setlength{\hshl@progressinheadfoot@linewidth}{0.4pt}
+\newlength{\teamhenkler@progressinheadfoot}
+\newlength{\teamhenkler@progressinheadfoot@linewidth}
+\setlength{\teamhenkler@progressinheadfoot@linewidth}{0.4pt}
 \setbeamertemplate{progress bar in head/foot}{
   \nointerlineskip
-  \setlength{\hshl@progressinheadfoot}{%
+  \setlength{\teamhenkler@progressinheadfoot}{%
     \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
   }%
   \begin{beamercolorbox}[wd=\textwidth]{progress bar in head/foot}
     \tikzexternaldisable%
     \begin{tikzpicture}
-      \fill[bg] (0,0) rectangle (\textwidth, \hshl@progressinheadfoot@linewidth);
-      \fill[fg] (0,0) rectangle (\hshl@progressinheadfoot, \hshl@progressinheadfoot@linewidth);
+      \fill[bg] (0,0) rectangle (\textwidth, \teamhenkler@progressinheadfoot@linewidth);
+      \fill[fg] (0,0) rectangle (\teamhenkler@progressinheadfoot, \teamhenkler@progressinheadfoot@linewidth);
     \end{tikzpicture}%
     \tikzexternalenable%
   \end{beamercolorbox}
 }
+
+\setbeamertemplate{progress bar in head/foot static}{
+  \begin{beamercolorbox}[wd=\textwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \fill[fg] (0,0) rectangle (\textwidth, \teamhenkler@progressinheadfoot@linewidth);
+    \end{tikzpicture}%
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+
 \AtBeginDocument{%
   \apptocmd{\appendix}{%
     \pgfkeys{%
-      /hshl/outer/.cd,
+      /teamhenkler/outer/.cd,
       numbering=none,
       progressbar=none}
     }{}{}
 }
-\hshl@outer@setdefaults
-\ProcessPgfPackageOptions{/hshl/outer}
+\teamhenkler@outer@setdefaults
+\ProcessPgfPackageOptions{/teamhenkler/outer}
 
 \mode<all>

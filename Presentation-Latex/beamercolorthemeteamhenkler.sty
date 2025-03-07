@@ -7,19 +7,19 @@
 
 \RequirePackage{pgfopts}
 \pgfkeys{
-  /hshl/color/block/.cd,
+  /teamhenkler/color/block/.cd,
     .is choice,
-    transparent/.code=\hshl@block@transparent,
-    fill/.code=\hshl@block@fill,
+    transparent/.code=\teamhenkler@block@transparent,
+    fill/.code=\teamhenkler@block@fill,
 }
 \pgfkeys{
-  /hshl/color/background/.cd,
+  /teamhenkler/color/background/.cd,
     .is choice,
-    dark/.code=\hshl@colors@dark,
-    light/.code=\hshl@colors@light,
+    dark/.code=\teamhenkler@colors@dark,
+    light/.code=\teamhenkler@colors@light,
 }
-\newcommand{\hshl@color@setdefaults}{
-  \pgfkeys{/hshl/color/.cd,
+\newcommand{\teamhenkler@color@setdefaults}{
+  \pgfkeys{/teamhenkler/color/.cd,
     background=light,
     block=transparent,
   }
@@ -28,14 +28,14 @@
 \definecolor{mDarkTeal}{HTML}{23373b}
 \definecolor{mLightBrown}{HTML}{EB811B}
 \definecolor{mLightGreen}{HTML}{14B03D}
-\newcommand{\hshl@colors@dark}{
+\newcommand{\teamhenkler@colors@dark}{
   \setbeamercolor{normal text}{%
     fg=black!2,
     bg=mDarkTeal
   }
   \usebeamercolor[fg]{normal text}
 }
-\newcommand{\hshl@colors@light}{
+\newcommand{\teamhenkler@colors@light}{
   \setbeamercolor{normal text}{%
     fg=mDarkTeal,
     bg=black!2
@@ -78,7 +78,7 @@ fg=normal text.fg
   use=progress bar,
   parent=progress bar
 }
-\newcommand{\hshl@block@transparent}{
+\newcommand{\teamhenkler@block@transparent}{
   \setbeamercolor{block title}{%
     use=normal text,
     fg=normal text.fg,
@@ -88,7 +88,7 @@ fg=normal text.fg
     bg=
   }
 }
-\newcommand{\hshl@block@fill}{
+\newcommand{\teamhenkler@block@fill}{
   \setbeamercolor{block title}{%
     use=normal text,
     fg=normal text.fg,
@@ -117,8 +117,8 @@ fg=normal text.fg
 \setbeamercolor{bibliography entry title}{fg=, bg=}
 \setbeamercolor{bibliography entry location}{fg=, bg=}
 \setbeamercolor{bibliography entry note}{fg=, bg=}
-\hshl@color@setdefaults
-\ProcessPgfPackageOptions{/hshl/color}
+\teamhenkler@color@setdefaults
+\ProcessPgfPackageOptions{/teamhenkler/color}
 
 \mode
 <all>

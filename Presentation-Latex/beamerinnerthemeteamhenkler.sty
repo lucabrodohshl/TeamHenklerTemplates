@@ -1,6 +1,6 @@
 \mode<presentation>
 
-\ProvidesPackage{beamerinnerthemehshl}
+\ProvidesPackage{beamerinnerthemeteamhenkler}
 
 \RequirePackage{etoolbox}
 \RequirePackage{keyval}
@@ -12,23 +12,23 @@
 
 
 \pgfkeys{
-  /hshl/inner/sectionpage/.cd,
+  /teamhenkler/inner/sectionpage/.cd,
     .is choice,
-    none/.code=\hshl@disablesectionpage,
-    simple/.code={\hshl@enablesectionpage
+    none/.code=\teamhenkler@disablesectionpage,
+    simple/.code={\teamhenkler@enablesectionpage
                   \setbeamertemplate{section page}[simple]},
-    progressbar/.code={\hshl@enablesectionpage
+    progressbar/.code={\teamhenkler@enablesectionpage
                        \setbeamertemplate{section page}[progressbar]},
-    progressbarHSHL/.code={\hshl@enablesectionpage
+    progressbarHSHL/.code={\teamhenkler@enablesectionpage
                        \setbeamertemplate{section page}[progressbar2]},
 }
 \pgfkeys{
-  /hshl/inner/subsectionpage/.cd,
+  /teamhenkler/inner/subsectionpage/.cd,
     .is choice,
-    none/.code=\hshl@disablesubsectionpage,
-    simple/.code={\hshl@enablesubsectionpage
+    none/.code=\teamhenkler@disablesubsectionpage,
+    simple/.code={\teamhenkler@enablesubsectionpage
                   \setbeamertemplate{section page}[simple]},
-    progressbar/.code={\hshl@enablesubsectionpage
+    progressbar/.code={\teamhenkler@enablesubsectionpage
                        \setbeamertemplate{section page}[progressbar]},
 }
 
@@ -112,12 +112,12 @@
   \par%
   \vspace*{0.5em}
 }
-\newlength{\hshl@titleseparator@linewidth}
-\setlength{\hshl@titleseparator@linewidth}{0.4pt}
+\newlength{\teamhenkler@titleseparator@linewidth}
+\setlength{\teamhenkler@titleseparator@linewidth}{0.4pt}
 \setbeamertemplate{title separator}{
   \tikzexternaldisable%
   \begin{tikzpicture}
-    \fill[fg] (0,0) rectangle (\textwidth, \hshl@titleseparator@linewidth);
+    \fill[fg] (0,0) rectangle (\textwidth, \teamhenkler@titleseparator@linewidth);
   \end{tikzpicture}%
   \tikzexternalenable%
   \par%
@@ -175,12 +175,12 @@
 
 
 
-\newcommand{\hshl@disablesectionpage}{
+\newcommand{\teamhenkler@disablesectionpage}{
   \AtBeginSection{
     % intentionally empty
   }
 }
-\newcommand{\hshl@enablesectionpage}{
+\newcommand{\teamhenkler@enablesectionpage}{
   \AtBeginSection{
     \ifbeamer@inframe
       \sectionpage
@@ -190,12 +190,12 @@
   }
 }
 
-\newcommand{\hshl@disablesubsectionpage}{
+\newcommand{\teamhenkler@disablesubsectionpage}{
   \AtBeginSubsection{
     % intentionally empty
   }
 }
-\newcommand{\hshl@enablesubsectionpage}{
+\newcommand{\teamhenkler@enablesubsectionpage}{
   \AtBeginSubsection{
     \ifbeamer@inframe
       \subsectionpage
@@ -210,31 +210,31 @@
 }
 
 
-\newlength{\hshl@progressonsectionpage}
-\newlength{\hshl@progressonsectionpage@linewidth}
-\setlength{\hshl@progressonsectionpage@linewidth}{0.4pt}
+\newlength{\teamhenkler@progressonsectionpage}
+\newlength{\teamhenkler@progressonsectionpage@linewidth}
+\setlength{\teamhenkler@progressonsectionpage@linewidth}{0.4pt}
 \setbeamertemplate{progress bar in section page}{
-  \setlength{\hshl@progressonsectionpage}{%
+  \setlength{\teamhenkler@progressonsectionpage}{%
     \textwidth * \ratio{\the\numexpr\insertframenumber+1\relax pt}{\inserttotalframenumber pt}%
   }%
   \tikzexternaldisable%
   \begin{tikzpicture}
-    \fill[HSHLDarkBlue] (0,0) rectangle (\textwidth, \hshl@progressonsectionpage@linewidth);
-    \fill[HSHLOrange] (0,0) rectangle (\hshl@progressonsectionpage, \hshl@progressonsectionpage@linewidth);
+    \fill[HSHLDarkBlue] (0,0) rectangle (\textwidth, \teamhenkler@progressonsectionpage@linewidth);
+    \fill[HSHLOrange] (0,0) rectangle (\teamhenkler@progressonsectionpage, \teamhenkler@progressonsectionpage@linewidth);
   \end{tikzpicture}%
   \tikzexternalenable%
 }
 
 
 \def\inserttotalframenumber{100}
-\newlength{\hshl@blocksep}
-\newlength{\hshl@blockadjust}
-\setlength{\hshl@blocksep}{0.75ex}
-\setlength{\hshl@blockadjust}{0.25ex}
-\providecommand{\hshl@strut}{%
+\newlength{\teamhenkler@blocksep}
+\newlength{\teamhenkler@blockadjust}
+\setlength{\teamhenkler@blocksep}{0.75ex}
+\setlength{\teamhenkler@blockadjust}{0.25ex}
+\providecommand{\teamhenkler@strut}{%
   \vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()}%
 }
-\newcommand{\hshl@block}[1]{
+\newcommand{\teamhenkler@block}[1]{
   \par\vskip\medskipamount%
   \setlength{\parskip}{0pt}
   \ifbeamercolorempty[bg]{block title#1}{%
@@ -244,15 +244,15 @@
   }%
   {%
     \begin{beamercolorbox}[
-      sep=\dimexpr\hshl@blocksep-\hshl@blockadjust\relax,
-      leftskip=\hshl@blockadjust,
-      rightskip=\dimexpr\hshl@blockadjust plus 4em\relax
+      sep=\dimexpr\teamhenkler@blocksep-\teamhenkler@blockadjust\relax,
+      leftskip=\teamhenkler@blockadjust,
+      rightskip=\dimexpr\teamhenkler@blockadjust plus 4em\relax
     ]{block title#1}%
   }}%
       \usebeamerfont*{block title#1}%
-      \hshl@strut%
+      \teamhenkler@strut%
       \insertblocktitle%
-      \hshl@strut%
+      \teamhenkler@strut%
   \end{beamercolorbox}%
   \nointerlineskip%
   \ifbeamercolorempty[bg]{block body#1}{%
@@ -260,17 +260,17 @@
   \ifbeamercolorempty[bg]{block body}{%
     \begin{beamercolorbox}[vmode]{block body#1}%
   }{%
-    \begin{beamercolorbox}[sep=\hshl@blocksep, vmode]{block body#1}%
-    \vspace{-\hshl@parskip}
+    \begin{beamercolorbox}[sep=\teamhenkler@blocksep, vmode]{block body#1}%
+    \vspace{-\teamhenkler@parskip}
   }}%
       \usebeamerfont{block body#1}%
-      \setlength{\parskip}{\hshl@parskip}%
+      \setlength{\parskip}{\teamhenkler@parskip}%
 }
 
 
-\setbeamertemplate{block begin}{\hshl@block{}}
-\setbeamertemplate{block alerted begin}{\hshl@block{ alerted}}
-\setbeamertemplate{block example begin}{\hshl@block{ example}}
+\setbeamertemplate{block begin}{\teamhenkler@block{}}
+\setbeamertemplate{block alerted begin}{\teamhenkler@block{ alerted}}
+\setbeamertemplate{block example begin}{\teamhenkler@block{ example}}
 \setbeamertemplate{block end}{\end{beamercolorbox}\vspace*{0.2ex}}
 \setbeamertemplate{block alerted end}{\end{beamercolorbox}\vspace*{0.2ex}}
 \setbeamertemplate{block example end}{\end{beamercolorbox}\vspace*{0.2ex}}
@@ -283,9 +283,9 @@
   \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
 }
 
-\newlength{\hshl@parskip}
-\setlength{\hshl@parskip}{0.5em}
-\setlength{\parskip}{\hshl@parskip}
+\newlength{\teamhenkler@parskip}
+\setlength{\teamhenkler@parskip}{0.5em}
+\setlength{\parskip}{\teamhenkler@parskip}
 \linespread{1.15}
 \define@key{beamerframe}{c}[true]{% centered
   \beamer@frametopskip=0pt plus 1fill\relax%
@@ -295,9 +295,9 @@
   \def\beamer@initfirstlineunskip{}%
 }
 
-\providebool{hshl@standout}
+\providebool{teamhenkler@standout}
 \define@key{beamerframe}{standout}[true]{%
-  \booltrue{hshl@standout}
+  \booltrue{teamhenkler@standout}
   \begingroup
     \setkeys{beamerframe}{c}
     \setkeys{beamerframe}{noframenumbering}
@@ -318,28 +318,28 @@
     \usebeamercolor[fg]{palette primary}
 }
   \pretocmd{\beamer@reseteecodes}{%
-    \ifbool{hshl@standout}{
+    \ifbool{teamhenkler@standout}{
       \endgroup
-      \boolfalse{hshl@standout}
+      \boolfalse{teamhenkler@standout}
     }{}
   }{}{}
   \AtBeginEnvironment{beamer@frameslide}{
-    \ifbool{hshl@standout}{
+    \ifbool{teamhenkler@standout}{
       \centering
       \usebeamerfont{standout}
     }{}
   }
 
-\newcommand{\hshl@inner@setdefaults}{
-    \pgfkeys{/hshl/inner/.cd,
+\newcommand{\teamhenkler@inner@setdefaults}{
+    \pgfkeys{/teamhenkler/inner/.cd,
       sectionpage=progressbarHSHL,
       subsectionpage=none
     }
   }
   
 
-\hshl@inner@setdefaults
-\ProcessPgfPackageOptions{/hshl/inner}
+\teamhenkler@inner@setdefaults
+\ProcessPgfPackageOptions{/teamhenkler/inner}
 
 \mode
 <all>
