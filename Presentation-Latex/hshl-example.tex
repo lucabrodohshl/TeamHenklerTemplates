@@ -2,6 +2,7 @@
 \usetheme{teamhenkler}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{longtable}
 \title{A minimal example}
 \date{\today}
 \author{author}
@@ -14,7 +15,25 @@
 
 \begin{document}
 \maketitle
-
+\begin{frame}{Options to set with \texttt{\textbackslash thset\{\}} command  }
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Key} & \textbf{Options} \\ 
+        \hline
+        uni & HSHL, Fhd \\ \hline
+        inner/sectionpage & none, simple, \\&progressbar, progressbarHSHL \\ \hline
+        inner/subsectionpage & none, simple, progressbar \\ \hline
+        color/block & transparent, fill \\ \hline
+        color/background & dark, light \\ \hline
+        outer/footlinestyle & plain, slick \\ \hline
+        outer/numbering & none, counter, fraction \\ \hline
+        outer/progressbar & none, head, frametitle, \\& foot, headstatic, \\&frametitlestatic, footstatic \\ \hline
+    \end{tabular}
+   
+\end{table}
+\end{frame}
 
 \section[Theorem]{Talking about a theorem}
 \begin{frame} 
