@@ -543,10 +543,11 @@
 }
 
 \makeatother
-
+\
 
 \renewenvironment{abstract}{
 	\chapter*{Abstract} % For articles, you might use \section*{Abstract} instead
 	\vspace{1em} % Adjust the space if needed
 	%\itshape % Italicize the text, optional
+	
 }{}

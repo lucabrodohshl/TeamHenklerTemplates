@@ -17,16 +17,29 @@
 
 \newcommand{\thset}[1]{\pgfkeys{/teamhenkler/.cd,#1}}
 
-
+\pgfkeys{
+  /teamhenkler/project/.cd,
+  .is choice,
+    ProjectWork/.code = {\projecttype{Project Work}},
+    BachelorThesis/.code = {\projecttype{Bachelor Thesis}},
+    MasterThesis/.code = {\projecttype{Master Thesis}},
+    ResearchThesis/.code = {\projecttype{Research Thesis}}
+    none/.code= {\projecttype{}}
+}
 
 \pgfkeys{
   /teamhenkler/uni/.cd,
     .is choice,
     HSHL/.code={
-        \titlegraphic{\hfill\includegraphics[height=12mm]{assets/logo/HSHL_Logo_horizontal_CMYK_yellow_red_mit-Schutzraum_ENG.png}}
+          \titlegraphic{
+          \includegraphics[height=8mm]{assets/logo/logo_easy2.png}
+          }
+          \institute{Hochschule Hamm Lippstadt}
+
         },
-    Fhd/.code ={
-        \titlegraphic{\hfill\includegraphics[height=12mm]{assets/logo/FH_Dortmund-logo.svg.png}}
+    FhD/.code ={
+        \titlegraphic{\includegraphics[height=8mm]{assets/logo/FH_Dortmund-logo.svg.png}}
+        \institute{}
     }
 }
 
@@ -47,6 +60,32 @@
 \def\email#1{\gdef\@email{#1}}
 \def\@email{\@latex@error{No \noexpand\email given}\@ehc}
 \email{}
+
+\newcommand{\thematriculationnumber}{\@matriculationnumber}
+\def\matriculationnumber#1{\gdef\@matriculationnumber{#1}}
+\def\@matriculationnumber{\@latex@error{No \noexpand\matriculationnumber given}\@ehc}
+\matriculationnumber{}
+
+\newcommand{\theprojecttype}{\@projecttype}
+\def\projecttype#1{\gdef\@projecttype{#1}}
+\def\@projecttype{\@latex@error{No \noexpand\projecttype given}\@ehc}
+\projecttype{}
+
+
 \makeatother
+
+
+\newcommand{\makebib}[1]{
+  \begin{frame}[plain,noframenumbering,allowframebreaks,label=references]{Bibliography}
+    \bibliographystyle{ieeetr}
+    \bibliography{#1}
+  \end{frame}
+}
+\newcommand{\maketoc}[1][Table of Contents]{  % Default value: "Table of Contents"
+    \begin{frame}[plain,noframenumbering]{#1}
+        \tableofcontents
+    \end{frame}
+}
+
 
 \mode<all>

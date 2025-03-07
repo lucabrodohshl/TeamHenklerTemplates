@@ -108,11 +108,12 @@
 		\insertsectionnavigationhorizontal{0.8\paperwidth}{\hskip17pt}{\hskip17pt} 
 	\setcounter{vertrules}{\totvalue{section}}
 \end{beamercolorbox}
+\usebeamercolor{details}
 	%\addtocounter{vertrules}{-1}
         \begin{tikzpicture}[remember picture,overlay]
             \foreach \i in {1,2,...,\thevertrules}
             \draw[thick,black!40] (\i*\sectionboxwd+0.5\i+17pt,0.2) -- (\i*\sectionboxwd+0.5\i+17pt,0.65);
-        \node[thick] at ({(\value{vertrules})*\sectionboxwd + 10+17pt+0.5*(\value{vertrules})}, 0.39) {\fontsize{8}{10}\selectfont
+        \node[thick, details.fg] at ({(\value{vertrules})*\sectionboxwd + 10+20pt+0.5*(\value{vertrules})}, 0.39) {\fontsize{8}{10}\selectfont
             \the\numexpr\insertframenumber\relax/\inserttotalframenumber
         };
         \end{tikzpicture}%   
@@ -123,11 +124,17 @@
 \defbeamertemplate{section in head/foot}{plain}{}
 
 \defbeamertemplate{section in head/foot}{slick}{%
+        \usebeamercolor{details}
     \hspace*{-6pt}\setlength\fboxsep{0pt}%
     \parbox[c][4ex][t]{\dimexpr\sectionboxwd-5pt\relax}{%
         \hfill\parbox{\dimexpr\sectionboxwd-5pt\relax}{%
         \centering
-            \fontsize{8}{10}\selectfont\centering\ \insertsectionhead
+       \ifnum\thesection=\insertsectionheadnumber
+       \textcolor{details.fg!80}{\fontsize{8}{10}\selectfont\centering\ \insertsectionhead }
+        \else
+        \fontsize{8}{10}\selectfont\centering\ \insertsectionhead 
+        \fi
+            
         }\hfill\mbox{}%
     }\hspace*{4pt}%
 }
@@ -209,6 +216,27 @@
       progressbar=none}
     }{}{}
 }
+
+\setbeamertemplate{section in toc}{
+    \usebeamercolor{details}
+    \usebeamercolor{normal text}
+    \begin{tikzpicture}
+        \def\tempcolor{details.fg} % Default color
+        \def\templength{\textwidth} % Default length
+        
+        % Draw the line with specified length and color
+        \draw[\tempcolor, line width=0.5pt] (0,0) -- (\templength,0);
+        
+        % Draw the circle at the end of the line
+        \draw[\tempcolor, fill] (\templength,0) circle (1pt);
+        
+        % Align the section number and title properly
+        \node[anchor=west, text width=9cm, align=left, normal text.fg] at (0.2,0.4) 
+        {\textcolor{details.bg}{\inserttocsectionnumber.}~\inserttocsection};
+    \end{tikzpicture}
+}
+
+
 \teamhenkler@outer@setdefaults
 \ProcessPgfPackageOptions{/teamhenkler/outer}
 

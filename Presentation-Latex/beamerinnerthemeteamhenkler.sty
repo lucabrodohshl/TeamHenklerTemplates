@@ -21,6 +21,10 @@
                        \setbeamertemplate{section page}[progressbar]},
     progressbarHSHL/.code={\teamhenkler@enablesectionpage
                        \setbeamertemplate{section page}[progressbar2]},
+    simpleHSHL/.code={\teamhenkler@enablesectionpage
+    \setbeamertemplate{section page}[simpleHSHL]},
+    staticBarHSHL/.code={\teamhenkler@enablesectionpage
+                       \setbeamertemplate{section page}[staticBarHSHL]},        
 }
 \pgfkeys{
   /teamhenkler/inner/subsectionpage/.cd,
@@ -31,28 +35,74 @@
     progressbar/.code={\teamhenkler@enablesubsectionpage
                        \setbeamertemplate{section page}[progressbar]},
 }
+\defbeamertemplate{section page}{staticBarHSHL}{
+  \usebeamercolor{details}
+\centering
+\begin{minipage}{22em}
+  \raggedleft
 
+  \usebeamerfont{section title}
 
+  \Huge\fontsize{35}{10}\selectfont\textcolor{details.bg}{\thesection.}\\
+  \vspace{0.5cm}
+  \Large
+  \Huge\insertsection\\[-1ex]
+  \vspace{0.1cm}
+  \usebeamertemplate*{No progress in section page}
+  \par
+  \ifx\insertsubsection\@empty\else%
+  \usebeamercolor[fg]{subsection title}%
+  \usebeamerfont{subsection title}%
+  \insertsubsection
+  \fi
+\end{minipage}
+\par
+\vspace{\baselineskip}
+}
+\defbeamertemplate{section page}{simpleHSHL}{
+	\usebeamercolor{details}
+\centering
+\begin{minipage}{22em}
+  \raggedleft
+
+  \usebeamerfont{section title}
+
+  \Huge\fontsize{35}{10}\selectfont\textcolor{details.bg}{\thesection.}\\
+  \vspace{0.5cm}
+  \Large
+  \Huge\insertsection\\[-1ex]
+  \vspace{0.1cm}
+  %\usebeamertemplate*{No progress in section page}
+  \par
+  \ifx\insertsubsection\@empty\else%
+  \usebeamercolor[fg]{subsection title}%
+  \usebeamerfont{subsection title}%
+  \insertsubsection
+  \fi
+\end{minipage}
+\par
+\vspace{\baselineskip}
+}
 
 \defbeamertemplate{section page}{progressbar2}{
-	
+	\usebeamercolor{details}
 	\centering
 	\begin{minipage}{22em}
 		\raggedleft
 
 		\usebeamerfont{section title}
 
-		\Huge\fontsize{35}{10}\selectfont\thesection\\
+		\Huge\fontsize{35}{10}\selectfont\textcolor{details.bg}{\thesection.}\\
 		\vspace{0.5cm}
 		\Large
-		\Huge\insertsectionhead\\[-1ex]
+		\Huge\insertsection\\[-1ex]
 		\vspace{0.1cm}
 		\usebeamertemplate*{progress bar in section page}
 		\par
-		\ifx\insertsubsectionhead\@empty\else%
+		\ifx\insertsubsection\@empty\else%
 		\usebeamercolor[fg]{subsection title}%
 		\usebeamerfont{subsection title}%
-		\insertsubsectionhead
+		\insertsubsection
 		\fi
 	\end{minipage}
 	\par
@@ -61,22 +111,17 @@
 
 \setbeamertemplate{title page}{
     \begin{minipage}[c][\paperheight]{\textwidth}
-		\ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
-		\vfill
-		\centering
-		\begin{minipage}{\textwidth}
-            \centering
-            \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
-		    \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
-		\end{minipage}\\
-		\vspace{1.2cm}
-		\begin{minipage}{\textwidth}
-			\centering
+    \centering
+    \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+		\ifx\insertsubtitle\@empty\vspace{0.5cm}\else\usebeamertemplate*{subtitle}\vspace{-0.2cm}\fi
+    \ifx\theprojecttype\@empty\vspace{0.5cm}\else\usebeamertemplate*{projecttype}\vspace{-0.2cm}\fi
 		\ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+    \ifx\thematriculationnumber\@empty\else\usebeamertemplate*{thematriculationnumber}\fi
 		\ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+    \vspace{0.4cm}
+    \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+    \vspace{1.6cm}
 		\ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
-		\end{minipage}\\
-		\vspace{1.5cm}
 	\end{minipage}
 }
 
@@ -102,13 +147,20 @@
 \setbeamertemplate{title}{
   %\raggedright%
   \linespread{1.0}%
-  \inserttitle%
+  \huge\inserttitle%
   \par%
   \vspace*{0.5em}
 }
 \setbeamertemplate{subtitle}{
   %\raggedright%
   \insertsubtitle%
+  \par%
+  \vspace*{0.5em}
+}
+\setbeamertemplate{projecttype}{
+  \vspace*{-0.3em}
+  %\raggedright%
+  \theprojecttype%
   \par%
   \vspace*{0.5em}
 }
@@ -132,6 +184,12 @@
   \fi
   \par%
   \vspace*{0.25em}
+}
+
+
+\setbeamertemplate{thematriculationnumber}{
+  \footnotesize\thematriculationnumber%
+  \par%
 }
 \setbeamertemplate{date}{
   \insertdate%
@@ -218,9 +276,19 @@
     \textwidth * \ratio{\the\numexpr\insertframenumber+1\relax pt}{\inserttotalframenumber pt}%
   }%
   \tikzexternaldisable%
+  \usebeamercolor[fg]{progress bar}
   \begin{tikzpicture}
-    \fill[HSHLDarkBlue] (0,0) rectangle (\textwidth, \teamhenkler@progressonsectionpage@linewidth);
-    \fill[HSHLOrange] (0,0) rectangle (\teamhenkler@progressonsectionpage, \teamhenkler@progressonsectionpage@linewidth);
+    \fill[bg] (0,0) rectangle (\textwidth, \teamhenkler@progressonsectionpage@linewidth);
+    \fill[fg] (0,0) rectangle (\teamhenkler@progressonsectionpage, \teamhenkler@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+}
+
+\setbeamertemplate{No progress in section page}{
+  \usebeamercolor[fg]{progress bar in head/foot}
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[fg] (0,0) rectangle (\textwidth, \teamhenkler@progressonsectionpage@linewidth);
   \end{tikzpicture}%
   \tikzexternalenable%
 }
@@ -332,14 +400,14 @@
 
 \newcommand{\teamhenkler@inner@setdefaults}{
     \pgfkeys{/teamhenkler/inner/.cd,
-      sectionpage=progressbarHSHL,
+      sectionpage=none,
       subsectionpage=none
     }
   }
   
 
-\teamhenkler@inner@setdefaults
-\ProcessPgfPackageOptions{/teamhenkler/inner}
 
+\ProcessPgfPackageOptions{/teamhenkler/inner}
+\teamhenkler@inner@setdefaults
 \mode
 <all>

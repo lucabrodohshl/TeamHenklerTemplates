@@ -34,15 +34,21 @@
     bg=mDarkTeal
   }
   \usebeamercolor[fg]{normal text}
+  \setbeamercolor{details}{
+    fg=HSHLOrange,
+    bg = HSHLOrange
+  }
 }
 \newcommand{\teamhenkler@colors@light}{
   \setbeamercolor{normal text}{%
     fg=mDarkTeal,
     bg=black!2
   }
+  \setbeamercolor{details}{fg=HSHLDarkBlue,
+                            bg=HSHLOrange}
 }
 \setbeamercolor{alerted text}{%
-  fg=mLightBrown
+  fg=HSHLOrange
 }
 \setbeamercolor{example text}{%
   fg=mLightGreen
@@ -62,9 +68,9 @@ bg=normal text.bg,
 fg=normal text.fg
 }
 \setbeamercolor{progress bar}{%
-  use=alerted text,
-  fg=alerted text.fg,
-  bg=alerted text.fg!50!black!30
+  use=details,
+  fg=details.fg,
+  bg=details.fg!50!black!30
 }
 \setbeamercolor{title separator}{
   use=progress bar,
