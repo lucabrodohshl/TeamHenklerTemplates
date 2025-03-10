@@ -16,6 +16,6 @@ If you have a problem with the latex template, please write an email to luca.bro
 
 
 ## References
-- [Auriga] (https://github.com/anishathalye/auriga)
-- [Metropolis] (https://github.com/matze/mtheme)
+- [Auriga](https://github.com/anishathalye/auriga)
+- [Metropolis](https://github.com/matze/mtheme)
 
