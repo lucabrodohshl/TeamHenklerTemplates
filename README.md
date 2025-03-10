@@ -13,3 +13,9 @@ Ultimately, you should decide the flow of your thesis.
 
 ## Other stuff
 If you have a problem with the latex template, please write an email to luca.brodo@hshl.de
+
+
+## References
+- [Auriga] (https://github.com/anishathalye/auriga)
+- [Metropolis] (https://github.com/matze/mtheme)
+

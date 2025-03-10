@@ -1,64 +1,45 @@
 \documentclass{beamer}
 \usetheme{teamhenkler}
+
+\input{src/general_preamble.tex}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{longtable}
+\usepackage{fancyvrb}
+
 \title{A minimal example}
 \date{\today}
 \author{author}
 \subtitle{Master Thesis}
 \email{luca.brodo@hshl.de}
 
-\thset{uni=HSHL, outer/footlinestyle=slick, outer/progressbar=frametitlestatic}
+\thset{uni=HSHL,
+inner/sectionpage=progressbarHSHL,
+outer/footlinestyle=slick, 
+outer/progressbar=frametitlestatic,
+color/background=light
+}
 
-\input{src/general_preamble.tex}
+
 
 \begin{document}
 \maketitle
-\begin{frame}{Options to set with \texttt{\textbackslash thset\{\}} command  }
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Key} & \textbf{Options} \\ 
-        \hline
-        uni & HSHL, Fhd \\ \hline
-        inner/sectionpage & none, simple, \\&progressbar, progressbarHSHL \\ \hline
-        inner/subsectionpage & none, simple, progressbar \\ \hline
-        color/block & transparent, fill \\ \hline
-        color/background & dark, light \\ \hline
-        outer/footlinestyle & plain, slick \\ \hline
-        outer/numbering & none, counter, fraction \\ \hline
-        outer/progressbar & none, head, frametitle, \\& foot, headstatic, \\&frametitlestatic, footstatic \\ \hline
-    \end{tabular}
-   
-\end{table}
-\end{frame}
-
-\section[Theorem]{Talking about a theorem}
-\begin{frame} 
-\frametitle{There Is No Largst Prime Number} 
-\framesubtitle{The proof uses \textit{reductio ad absurdum}.} 
-\begin{theorem}
-There is no largest prime number. \end{theorem} 
-\begin{enumerate} 
-\item<1-| alert@1> Suppose $p$ were the largest prime number. 
-\item<2-> Let $q$ be the product of the first $p$ numbers. 
-\item<3-> Then $q+1$ is not divisible by any of them. 
-\item<1-> But $q + 1$ is greater than $1$, thus divisible by some prime
-number not in the first $p$ numbers. 
-\end{enumerate}
-\end{frame}
-\section{Simple Example}
-\begin{frame}{Simple Itemize}
-\begin{itemize}
-\item one
-\item two
-\item \inserttotalframenumber
-\end{itemize}
-\end{frame}
-
-
+\maketoc
+\input{src/example0.tex}
 \input{src/example1.tex}
 \input{src/example2.tex}
+
+
+\section[Example3]{Further examples}
+\input{src/bullets}
+\input{src/split}
+\input{src/figure}
+\input{src/centered}
+\input{src/monospace}
+\input{src/brackets}
+\input{src/link}
+
+\makebib{src/examplebib}
+
 \end{document}
