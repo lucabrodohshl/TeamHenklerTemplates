@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{henklerteam}[2014/08/16 Example LaTeX class]
+\ProvidesClass{teamhenkler}[2014/08/16 Example LaTeX class]
 
 
 
@@ -543,7 +543,7 @@
 }
 
 \makeatother
-\
+
 
 \renewenvironment{abstract}{
 	\chapter*{Abstract} % For articles, you might use \section*{Abstract} instead
