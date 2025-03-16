@@ -96,7 +96,8 @@
 \usepackage{chngcntr}
 \usepackage{bbm}
 \usepackage{xargs}  
-
+\usepackage{titlesec}
+\usepackage{titletoc}
 % ==========================
 % Math Packages
 % ==========================
@@ -551,3 +552,79 @@
 	%\itshape % Italicize the text, optional
 	
 }{}
+
+
+
+
+\AtBeginDocument{
+	\titleformat
+	{\chapter} % command
+	[display] % shape
+	{\bfseries\huge} % format
+	{\thechapter} % label
+	{0.5ex} % sep
+	{
+		\rule{\textwidth}{1pt}
+		\vspace{1ex}
+		\centering
+	} % before-code
+	[
+	\vspace{3cm}%
+	%\addtocontents{toc}{\protect\renewcommand{\thechapter}{\arabic{chapter}}}
+	] % after-code
+	\titleformat{name=\chapter,numberless}[display]
+	{\bfseries\huge\centering}
+	{}
+	{0pt}
+	{}
+	\titleformat
+	{\section} % command
+	{\bfseries\Large} % format
+	{\arabic{section}} % label
+	{0.0ex} % sep
+	{
+		%\rule{\textwidth}{1pt}
+		%\vspace{1ex}
+		%\centering
+	} % before-code
+	[
+	\vspace{0ex}%
+	%\addtocontents{toc}{\protect\renewcommand{\thechapter}{\arabic{chapter}}}
+	] % after-code
+
+	\titleformat
+	{\subsection} % command
+	{\bfseries\large} % format
+	{\arabic{section}.\arabic{subsection}} % label
+	{0.0ex} % sep
+	{
+		%\rule{\textwidth}{1pt}
+		%\vspace{1ex}
+		%\centering
+	} % before-code
+	[
+	\vspace{0ex}%
+	%\addtocontents{toc}{\protect\renewcommand{\thechapter}{\arabic{chapter}}}
+	] % after-code
+
+	\titleformat
+	{\subsubsection} % command
+	{\itshape} % format
+	{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % label
+	{0.0ex} % sep
+	{
+		%\rule{\textwidth}{1pt}
+		%\vspace{1ex}
+		%\centering
+	} % before-code
+	[
+	\vspace{0ex}%
+	%\addtocontents{toc}{\protect\renewcommand{\thechapter}{\arabic{chapter}}}
+	] % after-code
+
+	
+}
+% Ensure TOC only shows the number
+
+
+

@@ -236,3 +236,129 @@ This is the best practice to reference stuff. For example, in order to refer to 
 	\end{algorithmic}
 \end{algorithm}
 
+
+
+
+\begin{figure}[h]
+	\centering
+\scalebox{1.8}{ 
+\begin{tikzpicture}[node distance=0.5cm]
+
+	\node[state,initial,minimum size=0.5cm, initial distance=0.2cm, initial text=] (q_0) at (0,0.5)   {$$}; 
+	\node[state,minimum size=0.5cm] (q_1) [above right=of q_0] {$$}; 
+	\node[state,minimum size=0.5cm] (q_2) [below right=of q_0] {$$}; 
+	\node[state,minimum size=0.5cm](q_3) [below right=of q_1] {$$};
+	\path[->] 
+	(q_0) edge  node {} (q_1)
+	edge  node [swap] {} (q_2)
+	(q_1) edge  node  {} (q_3)
+	(q_2) edge  node [swap] {} (q_3) ;
+	
+	
+	
+	\node[state,initial,minimum size=0.5cm, initial distance=0.2cm, initial text=] (dtq_0) at (0,4.5)   {$$}; 
+	\node[state,minimum size=0.5cm] (dtq_1) [above right=of dtq_0] {$$}; 
+	\node[state,minimum size=0.5cm] (dtq_2) [below right=of dtq_0] {$$}; 
+	\node[state,minimum size=0.5cm](dtq_3) [below right=of dtq_1] {$$};
+	\path[->] 
+	(dtq_0) edge  node {} (dtq_1)
+	edge  node [swap] {} (dtq_2)
+	(dtq_1) edge  node  {} (dtq_3)
+	(dtq_2) edge  node [swap] {} (dtq_3) ;
+	
+	%\node[subLayer,fill=layer5!30, minimum width=2cm] at (5.5,0.5) (Envi) {Environment};
+	\node[subLayer,fill=layer4!30, minimum width=2cm, dashed] at (4,5.3) (Observer) {Observer};
+	\node[subLayer,fill=layer3!30, minimum width=2cm] at (4,4.2) (LLM) {Adapter};
+	
+	
+	% 	\node[subLayer,fill=layer3!30, minimum width=2cm] at (-7.5,6.7) (Designer) {Designer};
+	% \node[subLayer,fill=layer3!30, minimum width=2cm] at (-3.4,6.7) (NewModel) {New Model};
+	% \node[subLayer,fill=layer3!30, minimum width=2cm] at (-5.5,5.2) (ModelChecker) {Model Checker};
+	
+	%PT Background
+	\begin{pgfonlayer}{background} % Draw background
+		\node [subLayer, fill=layer1!30,fit={ (q_0)(q_2)(q_3)(q_1) }, minimum width=2.5cm, xshift=0cm ](physicalLayer) {};
+		\node[title,anchor=north west, xshift=0.2cm] at (physicalLayer.north west) {\textbf{PT}};
+	\end{pgfonlayer}
+	
+	
+
+
+	%DT Background
+		\begin{pgfonlayer}{background} 
+		\node [subLayer, fill=layer2!30,fit={ (dtq_0)(dtq_2)(dtq_3)(dtq_1) }, minimum width=2.5cm, xshift=0cm](digitalLayer) {};
+		\node[title,anchor=north west, xshift=0.2cm] at (digitalLayer.north west) {\textbf{DT}};
+	\end{pgfonlayer}
+	
+	
+	%Adapter
+	\begin{pgfonlayer}{background} % Draw background
+		\node [rectangle, rounded corners, text centered, draw=red, dashed, inner sep= 15pt,  minimum width=0.4cm, minimum height=1cm,fit={(Observer) (LLM) }](Adapter) {};
+		\node[title,anchor=north west, xshift=0.2cm, red] at (Adapter.north west) {\textbf{Evolution Block}};
+	\end{pgfonlayer}
+	%cyber Space
+	\begin{pgfonlayer}{background} % Draw background
+		\node [rectangle, rounded corners, text centered, draw=white, dashed, inner sep= 6pt, fit={(digitalLayer) (Adapter) }, minimum width=7.5cm](cyberSpace) {};
+		%\node[title,anchor=north east, xshift=-0.2cm] at (cyberSpace.north east) {\textbf{Cyber Space}};
+	\end{pgfonlayer}
+	
+	%Physical Space
+	
+
+%Offline
+% \begin{pgfonlayer}{background} % Draw background
+% 	\node [rectangle, rounded corners, text centered, draw=black!70, minimum height=2cm, inner sep= 11pt,, fit={(Designer)(ModelChecker)(NewModel)  }, minimum width=3cm](offline) {};
+% 	\node[title,anchor=south east, xshift=0cm] at (offline.south east) {\textbf{}};
+% \end{pgfonlayer}
+	
+		\node at(0.7,1.5) (Extender){};
+		\begin{pgfonlayer}{background} % Draw background
+		\node [rectangle, rounded corners, text centered, draw=black!70, inner sep= 6pt,, fit={(Extender)(cyberSpace) (physicalLayer) }, minimum width=8.7cm, xshift=0.08cm, yshift=0.1cm](online) {};
+		\node[title,anchor=south east, xshift=0cm] at (online.south east) {\textbf{Cognitive}};%\footnote{According to the OCM architecture \cite{henkler2008}}};
+	\end{pgfonlayer}
+	
+	% \begin{pgfonlayer}{background} % Draw background
+	% 	\node [rectangle, rounded corners, text centered, draw=black!70, inner sep= 6pt,, fit={(Extender)  }, minimum width=5.14cm, minimum height=2cm, xshift=0.08cm, yshift=-1.34cm, dashed](online) {};
+	% 	\node[title,anchor=south east, xshift=0cm] at (online.south east) {\textbf{C/R }};
+	% \end{pgfonlayer}
+	
+	
+		
+		%Arrows env pt
+		%\draw[arrow, dashed] ([yshift=0.4em]Envi.west)--([yshift=0.4em]physicalLayer.east) node[midway, above] {\small };
+		%\draw[arrow, dashed] ([yshift=-0.4em]physicalLayer.east)--([yshift=-0.4em]Envi.west) node[midway, above] {\small };
+		
+		
+		%Arros DT PT
+			\draw[arrow, dashed] ([xshift=-2em]digitalLayer.south) -- ([xshift=-2em] physicalLayer.north) node[midway, left] {\small };
+		\draw[arrow, dashed] ([xshift=0em]physicalLayer.north) -- ( [xshift=0em]digitalLayer.south) node[midway, right] {\small };
+			%darrow from DT to PT for updates
+		\draw[arrow, thick, red] ([xshift=2em]digitalLayer.south) -- ([xshift=2em]physicalLayer.north) node[midway, right, yshift=-0.3em] {\small Updates};
+		
+		%Arrows Adapter to PT
+			\draw[doublearrow, red] ([yshift= 2.1em] digitalLayer.east)--(Observer.west) node[midway, above] {\small };
+				%\draw[arrow, dashed, red] ([yshift=-0.1cm]digitalLayer.east)--([yshift= 0.2cm] LLM.west) node[midway, above] {\small };
+				\draw[arrow, dashed, red] ([xshift=0.8cm]digitalLayer.south) -- ++(0,-1.5em) coordinate (midpoint)  -| (LLM.south) ;
+		\draw[arrow, thick, red] ([yshift= -0.2cm]LLM.west)--([yshift=-0.5cm]digitalLayer.east) node[midway, below, xshift=1.3em, yshift=-0.5em] {\small Adapts};
+		
+		\draw[arrow, dashed, thick, red] ([yshift=1.5em] physicalLayer.east)-| ([xshift=0em] LLM.south)node[midway, right, yshift=0.5cm] {\small Collect};
+		
+		
+		%Arrows Designer New model Model checker
+		%\draw[arrow, dashed, opacity=0.4] ( Designer.east)-- (NewModel.west)node[midway, left, yshift=0.3cm] {\small};
+		%\draw[arrow, dashed, opacity=0.4] ( NewModel.south)|- (ModelChecker.east)node[midway, left, yshift=0.3cm] {\small};
+		%\draw[arrow, dashed, opacity=0.4] ( ModelChecker.west)-| (Designer.south)node[midway, left, yshift=0.3cm] {\small};
+		%Arrows DT offline
+		%\draw[arrow, dashed] ( digitalLayer.north)-- ++(0,3em) coordinate (midpoint) -| (offline.south) node[midway, left, yshift=0.3cm] {\small};
+		%\draw[arrow] ([shift=-2cm][xshift=-2cm]offline.south)|-(digitalLayer.west)node[midway, above, rotate=90]{\small Establishes};
+		%\draw[arrow] ([xshift=-2cm]offline.south)|-(physicalLayer.west){};
+		
+\end{tikzpicture}
+}
+%\caption{Our proposed architecture. Highlighted in red are the components we introduce to enable online self-adaptation. Dashed arrows represent the flow of data within the system.  }\label{fig:our_architecture}
+\end{figure}
+
+
+
+
+

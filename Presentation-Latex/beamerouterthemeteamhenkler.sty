@@ -10,6 +10,11 @@
 \regtotcounter{section}
 \setcounter{vertrules}{\totvalue{section}}
 
+\newlength{\teamhenkler@progressinheadfoot}
+\newlength{\teamhenkler@progressinheadfoot@linewidth}
+\setlength{\teamhenkler@progressinheadfoot@linewidth}{0.5pt}
+
+
 \newcommand{\footlinestyle}{slick}
 \pgfkeys{
   /teamhenkler/outer/footlinestyle/.cd,
@@ -43,9 +48,11 @@
       }
     },
     foot/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
-      \addtobeamertemplate{footline}{}{%
+    \setlength{\teamhenkler@progressinheadfoot@linewidth}{1pt}
+      \addtobeamertemplate{footline}{%
         \usebeamertemplate*{progress bar in head/foot}%
-      }
+        \vspace{0.27cm}
+      }{}
     },
     headstatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
       \addtobeamertemplate{headline}{}{%
@@ -54,13 +61,14 @@
     },
     frametitlestatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
       \addtobeamertemplate{frametitle}{}{%
-        \usebeamertemplate*{progress bar in head/foot static}
+        \usebeamertemplate{progress bar in head/foot static}
       }
     },
     footstatic/.code={\pgfkeys{/teamhenkler/outer/progressbar=none}
-      \addtobeamertemplate{footline}{}{%
+      \addtobeamertemplate{footline}{%
         \usebeamertemplate*{progress bar in head/foot static}%
-      }
+        \vspace{0.27cm}
+      }{}
     },
 }
 \newcommand{\teamhenkler@outer@setdefaults}{
@@ -74,7 +82,7 @@
 \defbeamertemplate{frame footer}{none}{}
 \defbeamertemplate{frame footer}{custom}[1]{ #1 }
 \defbeamertemplate{frame numbering}{none}{}
-\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+\defbeamertemplate{frame numbering}{counter}{\fontsize{8}{10}\selectfont\insertframenumber}
 \defbeamertemplate{frame numbering}{fraction}{
   \insertframenumber/\inserttotalframenumber
 }
@@ -84,11 +92,23 @@
     \usebeamerfont{page number in head/foot}%
     \usebeamertemplate*{frame footer}
     \hfill%
-    \usebeamertemplate*{frame numbering}
+    %\usebeamertemplate*{frame numbering}
   \end{beamercolorbox}%
+
+  \begin{tikzpicture}[remember picture,overlay] 
+    \node[thick, details.fg] at (15, 0.45)
+    {\fontsize{8}{10}\selectfont
+        \the\numexpr\insertframenumber\relax/\inserttotalframenumber
+    };
+    \end{tikzpicture}%   
+
   %\setbeamertemplate{section in head/foot}[plain]
 }
 
+
+\defbeamertemplate{footline}{test}{%
+
+}
 
 \newlength\sectionboxwd
 
@@ -101,8 +121,6 @@
 } 
 
 
-
-
 \defbeamertemplate{footline}{slick}{%
 	\begin{beamercolorbox}[wd=0.8\paperwidth]{footline}
 		\insertsectionnavigationhorizontal{0.8\paperwidth}{\hskip17pt}{\hskip17pt} 
@@ -113,11 +131,12 @@
         \begin{tikzpicture}[remember picture,overlay]
             \foreach \i in {1,2,...,\thevertrules}
             \draw[thick,black!40] (\i*\sectionboxwd+0.5\i+17pt,0.2) -- (\i*\sectionboxwd+0.5\i+17pt,0.65);
-        \node[thick, details.fg] at ({(\value{vertrules})*\sectionboxwd + 10+20pt+0.5*(\value{vertrules})}, 0.39) {\fontsize{8}{10}\selectfont
+        %\node[thick, details.fg] at ({(\value{vertrules})*\sectionboxwd + 10+20pt+0.5*(\value{vertrules})}, 0.39) 
+        \node[thick, details.fg] at (15, 0.45)
+        {\fontsize{8}{10}\selectfont
             \the\numexpr\insertframenumber\relax/\inserttotalframenumber
         };
         \end{tikzpicture}%   
-        %\setbeamertemplate{section in head/foot}[slick]
 }
 
 
@@ -130,13 +149,13 @@
         \hfill\parbox{\dimexpr\sectionboxwd-5pt\relax}{%
         \centering
        \ifnum\thesection=\insertsectionheadnumber
-       \textcolor{details.fg!80}{\fontsize{8}{10}\selectfont\centering\ \insertsectionhead }
+       \textcolor{details.fg}{\fontsize{8}{10}\selectfont\centering\ \insertsectionhead }
         \else
         \fontsize{8}{10}\selectfont\centering\ \insertsectionhead 
         \fi
             
         }\hfill\mbox{}%
-    }\hspace*{4pt}%
+    }\hspace*{4pt}
 }
 
 
@@ -162,14 +181,21 @@
       rightskip=\teamhenkler@frametitle@padding,%
     ]{frametitle}%
   \teamhenkler@frametitlestrut@start%
-  \centering\insertframetitle %\hfill\small\textcolor{gray}{\insertsectionhead}
+  \centering\textbf{\insertframetitle}%\hfill\small\textcolor{gray}{\insertsectionhead}
   \if\insertframesubtitle\empty
-  %\nolinebreak
   \else
-  \\[1mm]\small\insertframesubtitle\vspace*{-4mm}
+  \\[-1mm]\textcolor{black!40}{ \centering \textit{\insertframesubtitle}}\vspace*{-0.8cm}
   \fi
+  % Create a minipage for the logo on the right
+  % \ifx\inserttitlegraphic\@empty
+  % \else
+  %   \\[-0.4cm]\hfill\hspace{5cm} % Adjust the horizontal space if needed
+  %   \begin{minipage}[t][-0.2cm][r]{0.2\textwidth} % Adjust the width of the logo box
+  %     \hfill\scalebox{0.5}{\inserttitlegraphic}
+  %   \end{minipage}
+  % \fi
   \teamhenkler@frametitlestrut@end%
-  \end{beamercolorbox}%
+   \end{beamercolorbox}%
 }
 
 
@@ -180,21 +206,18 @@
 }
 
 
-\newlength{\teamhenkler@progressinheadfoot}
-\newlength{\teamhenkler@progressinheadfoot@linewidth}
-\setlength{\teamhenkler@progressinheadfoot@linewidth}{0.4pt}
+
 \setbeamertemplate{progress bar in head/foot}{
-  \nointerlineskip
-  \setlength{\teamhenkler@progressinheadfoot}{%
-    \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
-  }%
-  \begin{beamercolorbox}[wd=\textwidth]{progress bar in head/foot}
-    \tikzexternaldisable%
-    \begin{tikzpicture}
-      \fill[bg] (0,0) rectangle (\textwidth, \teamhenkler@progressinheadfoot@linewidth);
-      \fill[fg] (0,0) rectangle (\teamhenkler@progressinheadfoot, \teamhenkler@progressinheadfoot@linewidth);
-    \end{tikzpicture}%
-    \tikzexternalenable%
+   \setlength{\teamhenkler@progressinheadfoot}{%
+     \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+   }%
+   \begin{beamercolorbox}[wd=\textwidth]{progress bar in head/foot}
+     \tikzexternaldisable%
+     \begin{tikzpicture}
+       \fill[bg] (0,0.0) rectangle (\textwidth, \teamhenkler@progressinheadfoot@linewidth);
+       \fill[fg] (0,0.0) rectangle (\teamhenkler@progressinheadfoot, \teamhenkler@progressinheadfoot@linewidth);
+     \end{tikzpicture}%
+     \tikzexternalenable%
   \end{beamercolorbox}
 }
 
@@ -237,7 +260,16 @@
 }
 
 
+\defbeamertemplate{frame}{customplain}{%
+    %\vskip0pt plus1fill%
+    %\insertframecontent%
+    %\vskip0pt plus1fill%
+    %\usebeamertemplate{footline}{slick}
+}
+
 \teamhenkler@outer@setdefaults
 \ProcessPgfPackageOptions{/teamhenkler/outer}
+
+\setbeamertemplate{plain frame}[customplain]
 
 \mode<all>

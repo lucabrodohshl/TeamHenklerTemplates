@@ -76,7 +76,7 @@
 
 
 \newcommand{\makebib}[1]{
-  \begin{frame}[plain,noframenumbering,allowframebreaks,label=references]{Bibliography}
+  \begin{frame}[plain,noframenumbering,allowframebreaks]{References}
     \bibliographystyle{ieeetr}
     \bibliography{#1}
   \end{frame}
@@ -88,4 +88,7 @@
 }
 
 
+\renewcommand\footnoterule{}
+\let\oldvline\vline
+\renewcommand{\vline}{\textcolor{details.fg}{\oldvline}}
 \mode<all>

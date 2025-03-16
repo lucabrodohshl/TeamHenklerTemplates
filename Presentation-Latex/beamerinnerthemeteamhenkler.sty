@@ -147,7 +147,7 @@
 \setbeamertemplate{title}{
   %\raggedright%
   \linespread{1.0}%
-  \huge\inserttitle%
+  \Huge\textbf{\inserttitle}%
   \par%
   \vspace*{0.5em}
 }
@@ -345,10 +345,13 @@
 \setbeamertemplate{itemize items}{\guillemetright}
 \setbeamertemplate{caption label separator}{: }
 \setbeamertemplate{caption}[numbered]
+
+
 \setbeamertemplate{footnote}{%
   \parindent 0em\noindent%
-  \raggedright
-  \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+  \raggedleft
+  \usebeamercolor{footnote}\hbox to 1em{\hfil\tiny\insertfootnotemark} \tiny\insertfootnotetext%
+  \vspace{0.2cm}
 }
 
 \newlength{\teamhenkler@parskip}
@@ -409,5 +412,34 @@
 
 \ProcessPgfPackageOptions{/teamhenkler/inner}
 \teamhenkler@inner@setdefaults
+
+\providebool{teamhenkler@conclusion}
+\define@key{beamerframe}{conclusion}[true]{%
+  \booltrue{teamhenkler@conclusion}
+  \begingroup
+    \setkeys{beamerframe}{c}
+
+    % Apply the "plain" footline when conclusion is enabled
+    \setbeamertemplate{footline}[plain]
+}
+  \pretocmd{\beamer@reseteecodes}{%
+    \ifbool{teamhenkler@conclusion}{
+      \endgroup
+      \boolfalse{teamhenkler@conclusion}
+    }{}
+  }{}{}
+  \AtBeginEnvironment{beamer@frameslide}{
+    \ifbool{teamhenkler@conclusion}{
+      \centering
+      \usebeamerfont{standout}
+    }{}
+  }
+
+
+
+
+
+
+
 \mode
 <all>
