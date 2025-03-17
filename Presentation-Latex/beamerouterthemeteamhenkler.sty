@@ -162,13 +162,14 @@
 \newlength{\teamhenkler@frametitle@padding}
 \setlength{\teamhenkler@frametitle@padding}{2.2ex}
 \newcommand{\teamhenkler@frametitlestrut@start}{
-  \rule{0pt}{\teamhenkler@frametitle@padding +%
+  \rule{0pt}{1.9ex +%
     \totalheightof{%
       \ifcsdef{teamhenkler@frametitleformat}{\teamhenkler@frametitleformat X}{X}%
     }%
   }%
 }
 \newcommand{\teamhenkler@frametitlestrut@end}{
+  \vspace{-0.7cm}
   \rule[-\teamhenkler@frametitle@padding]{0pt}{\teamhenkler@frametitle@padding}
 }
 
@@ -185,6 +186,7 @@
   \if\insertframesubtitle\empty
   \else
   \\[-1mm]\textcolor{black!40}{ \centering \textit{\insertframesubtitle}}\vspace*{-0.8cm}
+  \vspace{0.7cm}
   \fi
   % Create a minipage for the logo on the right
   % \ifx\inserttitlegraphic\@empty

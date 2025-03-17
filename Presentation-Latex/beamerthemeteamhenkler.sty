@@ -75,20 +75,35 @@
 \makeatother
 
 
-\newcommand{\makebib}[1]{
-  \begin{frame}[plain,noframenumbering,allowframebreaks]{References}
-    \bibliographystyle{ieeetr}
-    \bibliography{#1}
-  \end{frame}
+\newcommand{\makebib}[2][References]{
+  \begingroup
+    \setbeamertemplate{frametitle continuation}{} % Remove Roman numerals
+    \begin{frame}[plain, noframenumbering, allowframebreaks]{#1} % Use #1 for the title
+      \bibliographystyle{ieeetr}
+      \bibliography{#2}
+    \end{frame}
+  \endgroup
 }
+
 \newcommand{\maketoc}[1][Table of Contents]{  % Default value: "Table of Contents"
     \begin{frame}[plain,noframenumbering]{#1}
         \tableofcontents
     \end{frame}
 }
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{helvet}  % Load Helvetica font
+\renewcommand{\rmdefault}{phv}  % Set Helvetica as the default font
+\renewcommand{\sfdefault}{phv}  % Set Helvetica for sans-serif
+
+
 
 \renewcommand\footnoterule{}
 \let\oldvline\vline
 \renewcommand{\vline}{\textcolor{details.fg}{\oldvline}}
+
+
 \mode<all>
