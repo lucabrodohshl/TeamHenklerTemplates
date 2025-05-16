@@ -164,7 +164,7 @@
 \newcommand{\problemref}[1]{Problem \ref{#1}}
 \newcommand{\subfigref}[1]{(\subref{#1})} 
 \newcommand{\appref}[1]{Appendix \ref{#1}}
-\newcommand{\sectionbreak}{\clearpage}
+\newcommand{\sectionbreak}{}
 
 
 % ==========================
