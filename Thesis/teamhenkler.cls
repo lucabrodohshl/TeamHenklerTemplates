@@ -580,7 +580,7 @@
 	\titleformat
 	{\section} % command
 	{\bfseries\Large} % format
-	{\arabic{section}} % label
+	{\arabic{chapter}.\arabic{section}} % label
 	{0.0ex} % sep
 	{
 		%\rule{\textwidth}{1pt}
@@ -595,7 +595,7 @@
 	\titleformat
 	{\subsection} % command
 	{\bfseries\large} % format
-	{\arabic{section}.\arabic{subsection}} % label
+	{\arabic{chapter}.\arabic{section}.\arabic{subsection}} % label
 	{0.0ex} % sep
 	{
 		%\rule{\textwidth}{1pt}
@@ -610,7 +610,7 @@
 	\titleformat
 	{\subsubsection} % command
 	{\itshape} % format
-	{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % label
+	{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % label
 	{0.0ex} % sep
 	{
 		%\rule{\textwidth}{1pt}
@@ -624,7 +624,4 @@
 
 	
 }
-% Ensure TOC only shows the number
-
-
 
