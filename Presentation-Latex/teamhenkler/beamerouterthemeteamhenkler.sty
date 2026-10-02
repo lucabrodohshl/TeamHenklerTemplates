@@ -5,7 +5,6 @@
 \RequirePackage{pgfopts}
 \RequirePackage{totcount}
 
-
 \newcounter{vertrules}
 \regtotcounter{section}
 \setcounter{vertrules}{\totvalue{section}}
@@ -13,6 +12,23 @@
 \newlength{\teamhenkler@progressinheadfoot}
 \newlength{\teamhenkler@progressinheadfoot@linewidth}
 \setlength{\teamhenkler@progressinheadfoot@linewidth}{0.5pt}
+
+
+% --- lengths we’ll reuse
+\newlength{\navwidth}
+\newlength{\footht}
+\newlength{\sectionboxwd}
+
+\AtBeginDocument{%
+  \setlength{\navwidth}{0.8\paperwidth}%
+  \setlength{\footht}{2.5ex+1.125ex}% matches ht+dp of the box
+  \ifnum\totvalue{section}>0
+    \setlength{\sectionboxwd}{\dimexpr \navwidth/\totvalue{section}\relax}%
+  \else
+    \setlength{\sectionboxwd}{\navwidth}%
+  \fi
+}
+
 
 
 \newcommand{\footlinestyle}{slick}
@@ -95,13 +111,17 @@
     %\usebeamertemplate*{frame numbering}
   \end{beamercolorbox}%
 
-  \begin{tikzpicture}[remember picture,overlay] 
-    \usebeamercolor{details}
-    \node[thick, details.fg] at (15, 0.45)
-    {\fontsize{8}{10}\selectfont
-        \the\numexpr\insertframenumber\relax/\inserttotalframenumber
-    };
+  % Only show slide numbers if not using noframenumbering
+  \ifbeamer@noframenumbering
+  \else
+    \begin{tikzpicture}[remember picture,overlay] 
+      \usebeamercolor{details}
+      \node[anchor=south east, thick, details.fg] at (current page.south east) [xshift=-0.5cm, yshift=0.5cm]
+      {\fontsize{8}{10}\selectfont
+          \usebeamertemplate{frame numbering}% fraction (default) or counter
+      };
     \end{tikzpicture}%   
+  \fi
 
   %\setbeamertemplate{section in head/foot}[plain]
 }
@@ -111,53 +131,57 @@
 
 }
 
-\newlength\sectionboxwd
-
-\AtBeginDocument{%
-	\ifnum\totvalue{section}>0 
-		\setlength\sectionboxwd{\dimexpr0.8\paperwidth/\totvalue{section}\relax}
-	\else
-	\setlength\sectionboxwd{\textwidth}
-	\fi
-} 
+%\newlength\sectionboxwd
+%
+%\AtBeginDocument{%
+%	\ifnum\totvalue{section}>0 
+%		\setlength\sectionboxwd{\dimexpr0.8\paperwidth/\totvalue{section}\relax}
+%	\else
+%	\setlength\sectionboxwd{\textwidth}
+%	\fi
+%} 
 
 
 \defbeamertemplate{footline}{slick}{%
-	\begin{beamercolorbox}[wd=0.8\paperwidth]{footline}
-		\insertsectionnavigationhorizontal{0.8\paperwidth}{\hskip17pt}{\hskip17pt} 
-	\setcounter{vertrules}{\totvalue{section}}
-\end{beamercolorbox}
-\usebeamercolor{details}
-	%\addtocounter{vertrules}{-1}
-        \begin{tikzpicture}[remember picture,overlay]
-            \foreach \i in {1,2,...,\thevertrules}
-            \draw[thick,black!40] (\i*\sectionboxwd+0.5\i+17pt,0.2) -- (\i*\sectionboxwd+0.5\i+17pt,0.65);
-        %\node[thick, details.fg] at ({(\value{vertrules})*\sectionboxwd + 10+20pt+0.5*(\value{vertrules})}, 0.39) 
-        \node[thick, details.fg] at (15, 0.45)
-        {\fontsize{8}{10}\selectfont
-            \the\numexpr\insertframenumber\relax/\inserttotalframenumber
-        };
-        \end{tikzpicture}%   
+  \begin{beamercolorbox}[wd=\navwidth,ht=5ex,dp=1.125ex]{footline}
+    % The navigation itself (same width)
+    \insertsectionnavigationhorizontal{\navwidth}{\hspace{0.1\textwidth}}{\hspace{0.1\textwidth}}
+  \end{beamercolorbox}
+
+  % Slide number (unchanged)
+  \ifbeamer@noframenumbering\else
+    \begin{tikzpicture}[remember picture,overlay]
+      \usebeamercolor{details}
+      \node[anchor=south east, thick, details.fg]
+        at (current page.south east) [xshift=-0.5cm, yshift=0.15cm]
+        {\fontsize{8}{10}\selectfont \usebeamertemplate{frame numbering}};
+    \end{tikzpicture}%
+  \fi
 }
-
-
 \defbeamertemplate{section in head/foot}{plain}{}
 
 \defbeamertemplate{section in head/foot}{slick}{%
-        \usebeamercolor{details}
-    \hspace*{-6pt}\setlength\fboxsep{0pt}%
-    \parbox[c][4ex][t]{\dimexpr\sectionboxwd-5pt\relax}{%
-        \hfill\parbox{\dimexpr\sectionboxwd-5pt\relax}{%
-        \centering
-       \ifnum\thesection=\insertsectionheadnumber
-       \textcolor{details.fg}{\fontsize{8}{10}\selectfont\centering\ \insertsectionhead }
-        \else
-        \fontsize{8}{10}\selectfont\centering\ \insertsectionhead 
-        \fi
-            
-        }\hfill\mbox{}%
-    }\hspace*{4pt}
+  \usebeamercolor{details}%
+  \hspace*{-6pt}\setlength\fboxsep{0pt}%
+  \parbox[c][4ex][c]{\dimexpr\sectionboxwd-5pt\relax}{%
+    \centering%
+    \raisebox{3ex}{% <-- move text UP by 3ex (use negative to move down)
+      \ifnum\thesection=\insertsectionheadnumber
+        \textcolor{details.fg}{\fontsize{8}{10}\selectfont\insertsectionhead}%
+      \else
+        \fontsize{8}{10}\selectfont\insertsectionhead%
+      \fi
+    }%
+  }%
+  % divider
+  \ifnum\insertsectionheadnumber<\totvalue{section}%
+    \begin{tikzpicture}[baseline=(current bounding box.south),x=1pt,y=1pt]
+      \draw[thick,black!40] (0,0) -- (0,12);
+    \end{tikzpicture}%
+  \fi
+  \hspace*{4pt}%
 }
+
 
 
 \newlength{\teamhenkler@frametitle@padding}

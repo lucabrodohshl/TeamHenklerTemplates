@@ -27,18 +27,39 @@
     none/.code= {\projecttype{}}
 }
 
+% Logos ship with the theme (teamhenkler-logo-*.png/jpg next to this file),
+% so they are found wherever the theme is installed -- no assets folder needed.
 \pgfkeys{
   /teamhenkler/uni/.cd,
     .is choice,
+    % HSHL lectures and internal talks
     HSHL/.code={
-          \titlegraphic{
-          \includegraphics[height=8mm]{assets/logo/logo_easy2.png}
-          }
-          \institute{Hochschule Hamm Lippstadt}
-
-        },
-    FhD/.code ={
-        \titlegraphic{\includegraphics[height=8mm]{assets/logo/FH_Dortmund-logo.svg.png}}
+        \titlegraphic{\includegraphics[height=8mm]{teamhenkler-logo-hshl-icon.png}}
+        \institute{Hochschule Hamm Lippstadt}
+    },
+    % FH Dortmund
+    FhD/.code={
+        \titlegraphic{\includegraphics[height=8mm]{teamhenkler-logo-fhdortmund.png}}
+        \institute{}
+    },
+    % conference talks: HSHL, AKI4KMU and funding logos (NRW ministry, EU)
+    conference/.code={
+        \titlegraphic{%
+          \makebox[\textwidth][c]{%
+            \includegraphics[height=1cm]{teamhenkler-logo-hshl.png}%
+            \hspace{0.3cm}%
+            \includegraphics[height=1cm]{teamhenkler-logo-aki4kmu.jpg}%
+            \hspace{0.3cm}%
+            \includegraphics[height=0.5cm]{teamhenkler-logo-mwike-nrw.png}%
+            \hspace{0.3cm}%
+            \includegraphics[height=0.5cm]{teamhenkler-logo-eu.png}%
+          }%
+        }
+        \institute{}
+    },
+    % no logos at all
+    none/.code={
+        \titlegraphic{}
         \institute{}
     }
 }
@@ -75,10 +96,18 @@
 \makeatother
 
 
-\newcommand{\makebib}[2][References]{
+% compact reference list: small font, tight spacing, fills each slide
+\newcommand{\makebib}[2][References]{%
   \begingroup
-    \setbeamertemplate{frametitle continuation}{} % Remove Roman numerals
-    \begin{frame}[plain, noframenumbering, allowframebreaks]{#1} % Use #1 for the title
+    \setbeamertemplate{frametitle continuation}{}% Remove Roman numerals
+    \setbeamerfont{bibliography item}{size=\scriptsize}%
+    \setbeamerfont{bibliography entry author}{size=\scriptsize}%
+    \setbeamerfont{bibliography entry title}{size=\scriptsize}%
+    \setbeamerfont{bibliography entry location}{size=\scriptsize}%
+    \setbeamerfont{bibliography entry note}{size=\scriptsize}%
+    \begin{frame}[plain, noframenumbering, allowframebreaks=1, t]{#1}
+      \scriptsize
+      \setlength{\parskip}{0pt}%
       \bibliographystyle{ieeetr}
       \bibliography{#2}
     \end{frame}
@@ -105,5 +134,7 @@
 \let\oldvline\vline
 \renewcommand{\vline}{\textcolor{details.fg}{\oldvline}}
 
+
+\newcommand{\titlefontsize}{\fontsize{22}{26}\selectfont}
 
 \mode<all>
